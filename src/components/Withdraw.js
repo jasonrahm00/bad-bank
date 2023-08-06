@@ -3,7 +3,11 @@ import { UserContext } from '../config/Context'
 
 function Withdraw() {
   const ctx = useContext(UserContext)
-  return <div>Withdraw</div>
+  return (
+    <>
+      <h1>Withdraw</h1>
+    </>
+  )
 }
 
 export default Withdraw

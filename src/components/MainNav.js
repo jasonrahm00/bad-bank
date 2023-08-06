@@ -1,19 +1,37 @@
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import { Link } from 'react-router-dom'
 
 function MainNav() {
   return (
-    <Navbar>
+    <Navbar expand='lg'>
       <Container>
         <Nav>
-          <Navbar.Brand href='/'>Badbank</Navbar.Brand>
-          <Nav.Link href='/create-account'>Create Account</Nav.Link>
-          <Nav.Link href='/login'>Login</Nav.Link>
-          <Nav.Link href='/deposit'>Deposit</Nav.Link>
-          <Nav.Link href='/withdraw'>Withdraw</Nav.Link>
-          <Nav.Link href='/balance'>Balance</Nav.Link>
-          <Nav.Link href='/all-data'>All Data</Nav.Link>
+          <Link to='/' className='navbar-brand'>
+            BadBank
+          </Link>
+          <Navbar.Toggle aria-controls='nav-collapse' />
+          <Navbar.Collapse id='nav-collapse'>
+            <Link to='/create-account' className='nav-link'>
+              Create Account
+            </Link>
+            <Link to='/login' className='nav-link'>
+              Login
+            </Link>
+            <Link to='/deposit' className='nav-link'>
+              Deposit
+            </Link>
+            <Link to='/withdraw' className='nav-link'>
+              Withdraw
+            </Link>
+            <Link to='/balance' className='nav-link'>
+              Balance
+            </Link>
+            <Link to='/all-data' className='nav-link'>
+              All Data
+            </Link>
+          </Navbar.Collapse>
         </Nav>
       </Container>
     </Navbar>

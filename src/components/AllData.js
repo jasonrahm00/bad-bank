@@ -3,7 +3,11 @@ import { UserContext } from '../config/Context'
 
 function AllData() {
   const ctx = useContext(UserContext)
-  return <div>AllData</div>
+  return (
+    <>
+      <h1>All Data</h1>
+    </>
+  )
 }
 
 export default AllData

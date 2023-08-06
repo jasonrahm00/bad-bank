@@ -3,7 +3,11 @@ import { UserContext } from '../config/Context'
 
 function Login() {
   const ctx = useContext(UserContext)
-  return <div>Login</div>
+  return (
+    <>
+      <h1>Login</h1>
+    </>
+  )
 }
 
 export default Login

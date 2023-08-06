@@ -3,7 +3,11 @@ import { UserContext } from '../config/Context'
 
 function Deposit() {
   const ctx = useContext(UserContext)
-  return <div>Deposit</div>
+  return (
+    <>
+      <h1>Deposit</h1>
+    </>
+  )
 }
 
 export default Deposit

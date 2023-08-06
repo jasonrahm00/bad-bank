@@ -3,7 +3,11 @@ import { UserContext } from '../config/Context'
 
 function Balance() {
   const ctx = useContext(UserContext)
-  return <div>Balance</div>
+  return (
+    <>
+      <h1>Balance</h1>
+    </>
+  )
 }
 
 export default Balance
