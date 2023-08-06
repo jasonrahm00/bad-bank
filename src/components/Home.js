@@ -1,7 +1,14 @@
-import React from 'react'
+import { useContext } from 'react'
+import { UserContext } from '../config/Context'
 
 function Home() {
-  return <div>Home</div>
+  const ctx = useContext(UserContext)
+  return (
+    <div>
+      <h1>Home</h1>
+      <div>{JSON.stringify(ctx)}</div>
+    </div>
+  )
 }
 
 export default Home
