@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { UserContext } from '../config/Context'
+import { UserContext } from '../../config/Context'
 
 function Login() {
   const ctx = useContext(UserContext)
