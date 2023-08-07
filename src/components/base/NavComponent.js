@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import { Link } from 'react-router-dom'
 
-function MainNav() {
+function NavComponent() {
   return (
     <Navbar expand='lg'>
       <Container>
@@ -38,4 +38,4 @@ function MainNav() {
   )
 }
 
-export default MainNav
+export default NavComponent

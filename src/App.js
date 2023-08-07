@@ -7,14 +7,14 @@ import Deposit from './components/pages/Deposit'
 import Withdraw from './components/pages/Withdraw'
 import Balance from './components/pages/Balance'
 import AllData from './components/pages/AllData'
-import Navbar from './components/base/MainNav'
+import NavComponent from './components/base/NavComponent'
 import { UserContext } from './config/Context'
 
 function App() {
   return (
     <div className='App'>
       <Router>
-        <Navbar />
+        <NavComponent />
         <UserContext.Provider
           value={{
             users: [

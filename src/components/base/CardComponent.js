@@ -1,4 +1,4 @@
-function Card(props) {
+function CardComponent(props) {
   const { header, title, text, body, status, bgcolor, txtcolor } = props
 
   function classes() {
@@ -20,4 +20,4 @@ function Card(props) {
   )
 }
 
-export default Card
+export default CardComponent
