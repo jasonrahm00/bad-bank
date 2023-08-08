@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 function FormComponent({ fields, onSubmit, defaultFormState }) {
   const [formData, setFormData] = useState(defaultFormState)
@@ -17,24 +19,25 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       {fields.map((field) => {
         return (
-          <div key={field.name}>
-            <label htmlFor={field.name}>{field.label}</label>
-            <input
-              id={field.name}
+          <Form.Group key={field.name} controlId={field.name}>
+            <Form.Label>{field.label}</Form.Label>
+            <Form.Control
               type={field.type}
+              placeholder={field.placeholder}
               name={field.name}
               value={formData[field.name] || ''}
               onChange={handleInputChange}
-              placeholder={field.placeholder}
             />
-          </div>
+          </Form.Group>
         )
       })}
-      <button type='submit'>Submit</button>
-    </form>
+      <Button variant='secondary' type='submit'>
+        Submit
+      </Button>
+    </Form>
   )
 }
 
