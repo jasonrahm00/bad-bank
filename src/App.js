@@ -4,7 +4,6 @@ import Home from './components/pages/Home'
 import CreateAccount from './components/pages/CreateAccount'
 import Deposit from './components/pages/Deposit'
 import Withdraw from './components/pages/Withdraw'
-import Balance from './components/pages/Balance'
 import AllData from './components/pages/AllData'
 import NavComponent from './components/base/NavComponent'
 import { UserContext } from './config/Context'
@@ -48,7 +47,6 @@ function App() {
               <Route path='/create-account' element={<CreateAccount />} />
               <Route path='/deposit' element={<Deposit />} />
               <Route path='/withdraw' element={<Withdraw />} />
-              <Route path='/balance' element={<Balance />} />
               <Route path='/all-data' element={<AllData />} />
             </Routes>
           </UserContext.Provider>
