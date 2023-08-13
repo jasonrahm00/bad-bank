@@ -34,13 +34,11 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
       if (field.validation) {
         const { name, validation } = field
         const value = formData[name]
-        const rules = validation.rules || []
-        const errorMessages = validation.errorMessages || {}
+        const rules = validation || []
 
         for (const rule of rules) {
           if (!rule.validate(value)) {
-            errors[name] = errorMessages[rule.name] || 'Invalid Input'
-            break
+            errors[name] = rule.errorMessage || 'Invalid Input'
           }
         }
       }

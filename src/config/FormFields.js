@@ -1,5 +1,9 @@
-const messages = {
-  required: 'Field required',
+const validationRules = {
+  required: {
+    name: 'required',
+    validate: (value) => !!value.trim(),
+    errorMessage: 'Field required',
+  },
 }
 
 export const NameField = {
@@ -7,17 +11,7 @@ export const NameField = {
   name: 'name',
   placeholder: 'Enter your name',
   label: 'Name',
-  validation: {
-    rules: [
-      {
-        name: 'required',
-        validate: (value) => !!value.trim(),
-      },
-    ],
-    errorMessages: {
-      required: messages.required,
-    },
-  },
+  validation: [validationRules.required],
 }
 
 export const EmailField = {
@@ -25,6 +19,7 @@ export const EmailField = {
   name: 'email',
   placeholder: 'Enter your email',
   label: 'Email',
+  validation: [validationRules.required],
 }
 
 export const PasswordField = {
@@ -32,4 +27,12 @@ export const PasswordField = {
   name: 'password',
   placeholder: 'Enter your password',
   label: 'Password',
+  validation: [
+    validationRules.required,
+    {
+      name: 'pwLength',
+      validate: (value) => value.length >= 8,
+      errorMessage: 'Password must be at least 8 characters long',
+    },
+  ],
 }
