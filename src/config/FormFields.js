@@ -3,6 +3,17 @@ export const NameField = {
   name: 'name',
   placeholder: 'Enter your name',
   label: 'Name',
+  validation: {
+    rules: [
+      {
+        name: 'required',
+        validate: (value) => !!value.trim(),
+      },
+    ],
+    errorMessages: {
+      required: 'Name is required',
+    },
+  },
 }
 
 export const EmailField = {

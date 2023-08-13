@@ -17,21 +17,18 @@ const defaultUsers = [
     email: 'jane@me.com',
     password: 'Access123',
     balance: 0,
-    signedIn: false,
   },
   {
     name: 'Peter Parker',
     email: 'peter@mit.edu',
     password: 'Passcode321',
     balance: 0,
-    signedIn: false,
   },
   {
     name: 'John Smith',
     email: 'john@msn.com',
     password: 'Letmein33',
     balance: 0,
-    signedIn: false,
   },
 ]
 
@@ -43,6 +40,7 @@ function App() {
         <Container>
           <UserContext.Provider
             value={{
+              currentUser: null,
               users: defaultUsers,
             }}
           >

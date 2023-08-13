@@ -5,7 +5,7 @@ function Login() {
   const ctx = useContext(UserContext)
   return (
     <>
-      <h1>Login</h1>
+      <h1>{ctx.currentUser ? 'Hello ' + ctx.currentUser.name : 'Login'}</h1>
     </>
   )
 }
