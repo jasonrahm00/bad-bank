@@ -36,3 +36,11 @@ export const PasswordField = {
     },
   ],
 }
+
+export const AmountField = {
+  type: 'text',
+  name: 'amount',
+  placeholder: 'Enter Amount',
+  label: 'Amount',
+  validation: [],
+}

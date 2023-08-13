@@ -23,9 +23,6 @@ function NavComponent() {
             <Link to='/withdraw' className='nav-link'>
               Withdraw
             </Link>
-            <Link to='/balance' className='nav-link'>
-              Balance
-            </Link>
             <Link to='/all-data' className='nav-link'>
               All Data
             </Link>

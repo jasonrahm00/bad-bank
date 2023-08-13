@@ -12,7 +12,6 @@ function CreateAccount() {
   const [accountCreated, setAccountCreated] = useState(false)
   const ctx = useContext(UserContext)
   const defaultFormState = {
-    status: '',
     name: '',
     email: '',
     password: '',
@@ -34,6 +33,7 @@ function CreateAccount() {
 
       <CardComponent
         bgcolor='primary'
+        txtcolor='white'
         header='Create Account'
         body={
           accountCreated ? (
