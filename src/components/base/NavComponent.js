@@ -1,3 +1,4 @@
+import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
@@ -15,9 +16,6 @@ function NavComponent() {
           <Navbar.Collapse id='nav-collapse'>
             <Link to='/create-account' className='nav-link'>
               Create Account
-            </Link>
-            <Link to='/login' className='nav-link'>
-              Login
             </Link>
             <Link to='/deposit' className='nav-link'>
               Deposit

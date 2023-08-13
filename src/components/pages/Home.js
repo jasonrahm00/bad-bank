@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { UserContext } from '../../config/Context'
 import CardComponent from '../base/CardComponent'
 import bank from '../../assets/bank.png'

@@ -1,3 +1,7 @@
+const messages = {
+  required: 'Field required',
+}
+
 export const NameField = {
   type: 'text',
   name: 'name',
@@ -11,20 +15,20 @@ export const NameField = {
       },
     ],
     errorMessages: {
-      required: 'Name is required',
+      required: messages.required,
     },
   },
 }
 
 export const EmailField = {
-  type: 'email',
+  type: 'text',
   name: 'email',
   placeholder: 'Enter your email',
   label: 'Email',
 }
 
 export const PasswordField = {
-  type: 'password',
+  type: 'text',
   name: 'password',
   placeholder: 'Enter your password',
   label: 'Password',

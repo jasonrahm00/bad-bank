@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { UserContext } from '../../config/Context'
 import Table from 'react-bootstrap/Table'
 
@@ -13,6 +13,7 @@ function AllData() {
             <th scope='col'>Email</th>
             <th scope='col'>Name</th>
             <th scope='col'>Password</th>
+            <th scope='col'>Balance</th>
           </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@ function AllData() {
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.password}</td>
+                  <td>${user.balance}</td>
                 </tr>
               )
             })}

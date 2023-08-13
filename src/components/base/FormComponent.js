@@ -5,11 +5,13 @@ import Button from 'react-bootstrap/Button'
 function FormComponent({ fields, onSubmit, defaultFormState }) {
   const [formData, setFormData] = useState(defaultFormState)
   const [formErrors, setFormErrors] = useState({})
+  const [formFilled, setFormFilled] = useState(false)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
     setFormErrors({ ...formErrors, [name]: '' })
+    setFormFilled(Object.values({ ...formData, [name]: value }).some(Boolean))
   }
 
   const handleSubmit = (e) => {
@@ -19,6 +21,7 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
       if (onSubmit) {
         onSubmit(formData)
         setFormData(defaultFormState)
+        setFormFilled(false)
       }
     } else {
       setFormErrors(errors)
@@ -64,7 +67,7 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
           </Form.Group>
         )
       })}
-      <Button variant='secondary' type='submit'>
+      <Button variant='secondary' type='submit' disabled={!formFilled}>
         Submit
       </Button>
     </Form>

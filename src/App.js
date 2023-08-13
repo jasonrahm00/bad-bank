@@ -2,7 +2,6 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './components/pages/Home'
 import CreateAccount from './components/pages/CreateAccount'
-import Login from './components/pages/Login'
 import Deposit from './components/pages/Deposit'
 import Withdraw from './components/pages/Withdraw'
 import Balance from './components/pages/Balance'
@@ -16,19 +15,19 @@ const defaultUsers = [
     name: 'Jane Doe',
     email: 'jane@me.com',
     password: 'Access123',
-    balance: 0,
+    balance: 100,
   },
   {
     name: 'Peter Parker',
     email: 'peter@mit.edu',
     password: 'Passcode321',
-    balance: 0,
+    balance: 100,
   },
   {
     name: 'John Smith',
     email: 'john@msn.com',
     password: 'Letmein33',
-    balance: 0,
+    balance: 100,
   },
 ]
 
@@ -47,7 +46,6 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/create-account' element={<CreateAccount />} />
-              <Route path='/login' element={<Login />} />
               <Route path='/deposit' element={<Deposit />} />
               <Route path='/withdraw' element={<Withdraw />} />
               <Route path='/balance' element={<Balance />} />
