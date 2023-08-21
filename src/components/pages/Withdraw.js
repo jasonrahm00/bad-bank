@@ -15,9 +15,12 @@ function Withdraw() {
   )
 
   const handleSubmit = (data) => {
-    let newBalance = (ctx.currentUser.balance -= Number(data.amount))
-    setBalance(newBalance)
-    setUpdated(true)
+    if (balance - Number(data.amount) < 0) {
+      alert('Insufficient Funds')
+    } else {
+      setBalance((ctx.currentUser.balance -= Number(data.amount)))
+      setUpdated(true)
+    }
   }
 
   const handleSelector = (e) => {
