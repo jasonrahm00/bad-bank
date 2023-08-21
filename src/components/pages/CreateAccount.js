@@ -5,6 +5,7 @@ import FormComponent from '../base/FormComponent'
 import { PasswordField, NameField, EmailField } from '../../config/FormFields'
 import Button from 'react-bootstrap/Button'
 import ToastComponent from '../base/ToastComponent'
+import { getAccountNumber } from '../../config/Utils'
 
 function CreateAccount() {
   const [accountCreated, setAccountCreated] = useState(false)
@@ -13,6 +14,7 @@ function CreateAccount() {
     name: '',
     email: '',
     password: '',
+    accountNumber: '',
   }
 
   function handleCreate(data) {
@@ -21,6 +23,7 @@ function CreateAccount() {
       email: data.email,
       password: data.password,
       balance: 100,
+      accountNumber: getAccountNumber(),
     })
     setAccountCreated(true)
   }

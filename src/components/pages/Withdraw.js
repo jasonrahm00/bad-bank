@@ -15,6 +15,7 @@ function Withdraw() {
   )
 
   const handleSubmit = (data) => {
+    setUpdated(false)
     if (balance - Number(data.amount) < 0) {
       alert('Insufficient Funds')
     } else {
@@ -24,7 +25,10 @@ function Withdraw() {
   }
 
   const handleSelector = (e) => {
-    let currentUser = (ctx.currentUser = ctx.users[e.target.value])
+    let newUser = (ctx.currentUser = ctx.users.filter(
+      (user) => user.accountNumber == e.target.value
+    ))
+    let currentUser = (ctx.currentUser = newUser[0])
     setUser(currentUser)
     setBalance(currentUser.balance)
   }
@@ -43,7 +47,7 @@ function Withdraw() {
             <select
               name='user'
               id='user-selector'
-              defaultValue='default'
+              defaultValue={currentUser ? currentUser.accountNumber : 'default'}
               onChange={handleSelector}
             >
               <option value='default' disabled>
@@ -52,7 +56,7 @@ function Withdraw() {
               {ctx.users &&
                 ctx.users.map((user, index) => {
                   return (
-                    <option value={index} key={index}>
+                    <option value={user.accountNumber} key={index}>
                       {user.name}
                     </option>
                   )

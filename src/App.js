@@ -8,6 +8,7 @@ import AllData from './components/pages/AllData'
 import NavComponent from './components/base/NavComponent'
 import { UserContext } from './config/Context'
 import Container from 'react-bootstrap/Container'
+import { getAccountNumber } from './config/Utils'
 
 const defaultUsers = [
   {
@@ -15,18 +16,21 @@ const defaultUsers = [
     email: 'jane@me.com',
     password: 'Access123',
     balance: 100,
+    accountNumber: getAccountNumber(),
   },
   {
     name: 'Peter Parker',
     email: 'peter@mit.edu',
     password: 'Passcode321',
     balance: 100,
+    accountNumber: getAccountNumber(),
   },
   {
     name: 'John Smith',
     email: 'john@msn.com',
     password: 'Letmein33',
     balance: 100,
+    accountNumber: getAccountNumber(),
   },
 ]
 
