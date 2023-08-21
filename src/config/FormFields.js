@@ -42,5 +42,12 @@ export const AmountField = {
   name: 'amount',
   placeholder: 'Enter Amount',
   label: 'Amount',
-  validation: [],
+  validation: [
+    validationRules.required,
+    {
+      name: 'isNumber',
+      validate: (value) => !isNaN(value),
+      errorMessage: 'Please enter a number',
+    },
+  ],
 }
