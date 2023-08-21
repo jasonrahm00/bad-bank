@@ -6,8 +6,6 @@ import { PasswordField, NameField, EmailField } from '../../config/FormFields'
 import Button from 'react-bootstrap/Button'
 import ToastComponent from '../base/ToastComponent'
 
-const successMessage = 'Account created'
-
 function CreateAccount() {
   const [accountCreated, setAccountCreated] = useState(false)
   const ctx = useContext(UserContext)
@@ -29,8 +27,7 @@ function CreateAccount() {
 
   return (
     <>
-      {accountCreated && <ToastComponent message={successMessage} />}
-
+      {accountCreated && <ToastComponent message={'Account created'} />}
       <CardComponent
         bgcolor='primary'
         txtcolor='white'

@@ -6,27 +6,61 @@ import ToastComponent from '../base/ToastComponent'
 import { AmountField } from '../../config/FormFields'
 
 function Deposit() {
+  const defaultFormState = { amount: '' }
   const ctx = useContext(UserContext)
-  ctx.currentUser = ctx.users[0]
-  const defaultFormState = {
-    amount: '',
-  }
+  const [currentUser, setUser] = useState(ctx.currentUser)
+  const [updated, setUpdated] = useState(false)
+  const [balance, setBalance] = useState(
+    ctx.currentUser ? ctx.currentUser.balance : 0
+  )
 
   const handleSubmit = (data) => {
-    ctx.currentUser.balance += Number(data.amount)
+    let newBalance = (ctx.currentUser.balance += Number(data.amount))
+    setBalance(newBalance)
+    setUpdated(true)
+  }
+
+  const handleSelector = (e) => {
+    let currentUser = (ctx.currentUser = ctx.users[e.target.value])
+    setUser(currentUser)
+    setBalance(currentUser.balance)
   }
 
   return (
     <>
+      {updated && <ToastComponent message={'Deposit Made'} />}
       <CardComponent
-        header={'Depost into account for ' + ctx.currentUser.name}
-        title={'Balance: $' + ctx.currentUser.balance}
+        header={
+          'Depost into account for ' + (currentUser ? currentUser.name : '')
+        }
+        title={'Balance: $' + balance}
         body={
-          <FormComponent
-            fields={[AmountField]}
-            onSubmit={handleSubmit}
-            defaultFormState={defaultFormState}
-          />
+          <>
+            <label htmlFor='user-selector'>Select User</label>
+            <select
+              name='user'
+              id='user-selector'
+              defaultValue='default'
+              onChange={handleSelector}
+            >
+              <option value='default' disabled>
+                Select User
+              </option>
+              {ctx.users &&
+                ctx.users.map((user, index) => {
+                  return (
+                    <option value={index} key={index}>
+                      {user.name}
+                    </option>
+                  )
+                })}
+            </select>
+            <FormComponent
+              fields={[AmountField]}
+              onSubmit={handleSubmit}
+              defaultFormState={defaultFormState}
+            />
+          </>
         }
       />
     </>
