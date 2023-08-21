@@ -45,9 +45,14 @@ export const AmountField = {
   validation: [
     validationRules.required,
     {
-      name: 'isNumber',
+      name: 'isNum',
       validate: (value) => !isNaN(value),
       errorMessage: 'Please enter a number',
+    },
+    {
+      name: 'isPositiveNum',
+      validate: (value) => !(Number(value) < 0),
+      errorMessage: 'Please enter a positive number',
     },
   ],
 }
