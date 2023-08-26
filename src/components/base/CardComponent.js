@@ -2,7 +2,7 @@ import React from 'react'
 import Card from 'react-bootstrap/Card'
 
 function CardComponent(props) {
-  const { header, subheader, text, body, colClasses } = props
+  const { header, subheader, text, body, colClasses, footerText } = props
 
   return (
     <Card as='main' className={colClasses ? colClasses : 'col-9'}>
@@ -11,7 +11,12 @@ function CardComponent(props) {
         {subheader && <Card.Subtitle as='h2'>{subheader}</Card.Subtitle>}
         {text && <p className='card-text'>{text}</p>}
       </Card.Header>
-      <Card.Body>{body && body}</Card.Body>
+      {body && <Card.Body>{body}</Card.Body>}
+      {footerText && (
+        <Card.Footer>
+          <p class='m-0'>{footerText}</p>
+        </Card.Footer>
+      )}
     </Card>
   )
 }
