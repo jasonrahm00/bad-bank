@@ -25,6 +25,7 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
         onSubmit(formData)
         setFormData(defaultFormState)
         setFormFilled(false)
+        setFormErrors({})
       }
     } else {
       setFormErrors(errors)

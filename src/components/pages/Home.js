@@ -5,10 +5,14 @@ import bank from '../../assets/bank.png'
 function Home() {
   return (
     <CardComponent
-      header='BadBank Landing Page'
-      subheader='Welcome to The Bank'
-      text='You can use this bank'
-      body={<img src={bank} className='img-fluid' alt='' />}
+      header='Welcome to The Bank'
+      text='For all your banking needs'
+      colClasses='col-6'
+      body={
+        <div className='w-75 mx-auto'>
+          <img src={bank} className='img-fluid' alt='' />
+        </div>
+      }
     />
   )
 }

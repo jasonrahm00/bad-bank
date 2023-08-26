@@ -8,7 +8,7 @@ function ToastComponent(props) {
     <Toast
       onClose={onClose}
       show={show}
-      delay={3000}
+      delay={5000}
       autohide={true}
       bg={variant.toLowerCase()}
     >
