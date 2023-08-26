@@ -1,3 +1,5 @@
+const emailRegex =
+  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const validationRules = {
   required: {
     name: 'required',
@@ -19,7 +21,14 @@ export const EmailField = {
   name: 'email',
   placeholder: 'Enter your email',
   label: 'Email',
-  validation: [validationRules.required],
+  validation: [
+    validationRules.required,
+    {
+      name: 'validEmail',
+      validate: (value) => value.match(emailRegex),
+      errorMessage: 'Please enter a valid email address',
+    },
+  ],
 }
 
 export const PasswordField = {
