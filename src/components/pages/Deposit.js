@@ -5,36 +5,39 @@ import ToastComponent from '../base/ToastComponent'
 import { AmountField } from '../../config/FormFields'
 import { useUserContext } from '../../config/Context'
 import UserSelectorComponent from '../base/UserSelectorComponent'
+import { amountDefault, toastDefault } from '../../config/Defaults'
 
 function Deposit() {
-  const defaultFormState = { amount: '' }
   const { currentUser, changeBalance } = useUserContext()
-  const [showToast, setShowToast] = useState(false)
-  const [message, setMessage] = useState('')
-  const [toastBg, setToastBg] = useState('')
+  const [toast, setToast] = useState(toastDefault)
 
   const handleSubmit = (data) => {
     if (!currentUser.email) {
-      setMessage('Please select a user')
-      setToastBg('danger')
-      setShowToast(true)
+      setToast({
+        message: 'Please select a user',
+        showToast: true,
+        variant: 'danger',
+      })
       return
     } else {
       let inputAmount = Number(data.amount)
       changeBalance(inputAmount, 'add')
-      setToastBg('success')
-      setMessage('Deposit Successful')
-      setShowToast(true)
+
+      setToast({
+        message: 'Deposit Successful',
+        showToast: true,
+        variant: 'success',
+      })
     }
   }
 
   return (
     <>
       <ToastComponent
-        message={message}
-        show={showToast}
-        variant={toastBg}
-        onClose={() => setShowToast(false)}
+        message={toast.message}
+        show={toast.showToast}
+        variant={toast.variant}
+        onClose={() => setToast(toastDefault)}
       />
       <CardComponent
         header={
@@ -48,7 +51,7 @@ function Deposit() {
             <FormComponent
               fields={[AmountField]}
               onSubmit={handleSubmit}
-              defaultFormState={defaultFormState}
+              defaultFormState={amountDefault}
             />
           </>
         }

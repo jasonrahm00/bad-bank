@@ -5,25 +5,20 @@ import { PasswordField, NameField, EmailField } from '../../config/FormFields'
 import Button from 'react-bootstrap/Button'
 import ToastComponent from '../base/ToastComponent'
 import { useUserContext } from '../../config/Context'
+import { toastDefault, accountFormDefault } from '../../config/Defaults'
 
 function CreateAccount() {
-  const [showToast, setShowToast] = useState(false)
+  const [toast, setToast] = useState(toastDefault)
   const [accountCreated, setAccountCreated] = useState(false)
-  const [message, setMessage] = useState('')
   const { addUser, users } = useUserContext()
-  const [toastBg, setToastBg] = useState('')
-  const defaultFormState = {
-    name: '',
-    email: '',
-    password: '',
-    accountNumber: '',
-  }
 
   function handleSubmit(data) {
     if (users.find((user) => user.email === data.email)) {
-      setToastBg('danger')
-      setMessage('User with that email address already exists')
-      setShowToast(true)
+      setToast({
+        message: 'User with that email address already exists',
+        showToast: true,
+        variant: 'danger',
+      })
     } else {
       addUser({
         name: data.name,
@@ -31,20 +26,22 @@ function CreateAccount() {
         password: data.password,
         balance: 100,
       })
-      setToastBg('success')
+      setToast({
+        message: 'Account Created',
+        showToast: true,
+        variant: 'success',
+      })
       setAccountCreated(true)
-      setMessage('Account Created')
-      setShowToast(true)
     }
   }
 
   return (
     <>
       <ToastComponent
-        message={message}
-        show={showToast}
-        variant={toastBg}
-        onClose={() => setShowToast(false)}
+        message={toast.message}
+        show={toast.showToast}
+        variant={toast.variant}
+        onClose={() => setToast(toastDefault)}
       />
       <CardComponent
         bgcolor='primary'
@@ -59,7 +56,7 @@ function CreateAccount() {
             <FormComponent
               fields={[NameField, EmailField, PasswordField]}
               onSubmit={handleSubmit}
-              defaultFormState={defaultFormState}
+              defaultFormState={accountFormDefault}
             />
           )
         }

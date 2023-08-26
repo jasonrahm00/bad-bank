@@ -5,42 +5,46 @@ import ToastComponent from '../base/ToastComponent'
 import { AmountField } from '../../config/FormFields'
 import { useUserContext } from '../../config/Context'
 import UserSelectorComponent from '../base/UserSelectorComponent'
+import { amountDefault, toastDefault } from '../../config/Defaults'
 
 function Withdraw() {
-  const defaultFormState = { amount: '' }
   const { currentUser, changeBalance } = useUserContext()
-  const [showToast, setShowToast] = useState(false)
-  const [message, setMessage] = useState('')
-  const [toastBg, setToastBg] = useState('')
+  const [toast, setToast] = useState(toastDefault)
 
   const handleSubmit = (data) => {
-    setShowToast(false)
     if (!currentUser.email) {
-      setMessage('Please select a user')
-      setToastBg('danger')
-      setShowToast(true)
+      setToast({
+        message: 'Please select a user',
+        showToast: true,
+        variant: 'danger',
+      })
       return
     }
     if (currentUser.balance - Number(data.amount) < 0) {
-      setMessage('Insufficient Funds')
-      setToastBg('danger')
-      setShowToast(true)
+      setToast({
+        message: 'Insufficient Funds',
+        showToast: true,
+        variant: 'danger',
+      })
     } else {
       let inputAmount = Number(data.amount)
       changeBalance(inputAmount, 'subtract')
-      setMessage('Withdrawal Successful')
-      setToastBg('success')
-      setShowToast(true)
+
+      setToast({
+        message: 'Withdrawal Successful',
+        showToast: true,
+        variant: 'success',
+      })
     }
   }
 
   return (
     <>
       <ToastComponent
-        message={message}
-        show={showToast}
-        variant={toastBg}
-        onClose={() => setShowToast(false)}
+        message={toast.message}
+        show={toast.showToast}
+        variant={toast.variant}
+        onClose={() => setToast(toastDefault)}
       />
       <CardComponent
         header={
@@ -54,7 +58,7 @@ function Withdraw() {
             <FormComponent
               fields={[AmountField]}
               onSubmit={handleSubmit}
-              defaultFormState={defaultFormState}
+              defaultFormState={amountDefault}
             />
           </>
         }
