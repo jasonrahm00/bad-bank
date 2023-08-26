@@ -10,18 +10,30 @@ function Deposit() {
   const defaultFormState = { amount: '' }
   const { currentUser, changeBalance } = useUserContext()
   const [showToast, setShowToast] = useState(false)
+  const [message, setMessage] = useState('')
+  const [toastBg, setToastBg] = useState('')
 
   const handleSubmit = (data) => {
-    let inputAmount = Number(data.amount)
-    changeBalance(inputAmount, 'add')
-    setShowToast(true)
+    if (!currentUser.email) {
+      setMessage('Please select a user')
+      setToastBg('danger')
+      setShowToast(true)
+      return
+    } else {
+      let inputAmount = Number(data.amount)
+      changeBalance(inputAmount, 'add')
+      setToastBg('success')
+      setMessage('Deposit Successful')
+      setShowToast(true)
+    }
   }
 
   return (
     <>
       <ToastComponent
-        message={'Deposit Successful'}
+        message={message}
         show={showToast}
+        variant={toastBg}
         onClose={() => setShowToast(false)}
       />
       <CardComponent

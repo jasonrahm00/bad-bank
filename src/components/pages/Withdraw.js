@@ -11,16 +11,25 @@ function Withdraw() {
   const { currentUser, changeBalance } = useUserContext()
   const [showToast, setShowToast] = useState(false)
   const [message, setMessage] = useState('')
+  const [toastBg, setToastBg] = useState('')
 
   const handleSubmit = (data) => {
     setShowToast(false)
+    if (!currentUser.email) {
+      setMessage('Please select a user')
+      setToastBg('danger')
+      setShowToast(true)
+      return
+    }
     if (currentUser.balance - Number(data.amount) < 0) {
       setMessage('Insufficient Funds')
+      setToastBg('danger')
       setShowToast(true)
     } else {
       let inputAmount = Number(data.amount)
       changeBalance(inputAmount, 'subtract')
       setMessage('Withdrawal Successful')
+      setToastBg('success')
       setShowToast(true)
     }
   }
@@ -30,6 +39,7 @@ function Withdraw() {
       <ToastComponent
         message={message}
         show={showToast}
+        variant={toastBg}
         onClose={() => setShowToast(false)}
       />
       <CardComponent

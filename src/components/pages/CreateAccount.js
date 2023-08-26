@@ -11,6 +11,7 @@ function CreateAccount() {
   const [accountCreated, setAccountCreated] = useState(false)
   const [message, setMessage] = useState('')
   const { addUser, users } = useUserContext()
+  const [toastBg, setToastBg] = useState('')
   const defaultFormState = {
     name: '',
     email: '',
@@ -20,6 +21,7 @@ function CreateAccount() {
 
   function handleSubmit(data) {
     if (users.find((user) => user.email === data.email)) {
+      setToastBg('danger')
       setMessage('User with that email address already exists')
       setShowToast(true)
     } else {
@@ -29,6 +31,7 @@ function CreateAccount() {
         password: data.password,
         balance: 100,
       })
+      setToastBg('success')
       setAccountCreated(true)
       setMessage('Account Created')
       setShowToast(true)
@@ -40,6 +43,7 @@ function CreateAccount() {
       <ToastComponent
         message={message}
         show={showToast}
+        variant={toastBg}
         onClose={() => setShowToast(false)}
       />
       <CardComponent
