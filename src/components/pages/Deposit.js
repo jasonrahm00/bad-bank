@@ -9,17 +9,21 @@ import UserSelectorComponent from '../base/UserSelectorComponent'
 function Deposit() {
   const defaultFormState = { amount: '' }
   const { currentUser, changeBalance } = useUserContext()
-  const [updated, setUpdated] = useState(false)
+  const [showToast, setShowToast] = useState(false)
 
   const handleSubmit = (data) => {
     let inputAmount = Number(data.amount)
     changeBalance(inputAmount, 'add')
-    setUpdated(true)
+    setShowToast(true)
   }
 
   return (
     <>
-      {updated && <ToastComponent message={'Deposit Made'} />}
+      <ToastComponent
+        message={'Deposit Successful'}
+        show={showToast}
+        onClose={() => setShowToast(false)}
+      />
       <CardComponent
         header={
           'Depost into account for ' +

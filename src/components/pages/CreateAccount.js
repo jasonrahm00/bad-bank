@@ -7,7 +7,9 @@ import ToastComponent from '../base/ToastComponent'
 import { useUserContext } from '../../config/Context'
 
 function CreateAccount() {
+  const [showToast, setShowToast] = useState(false)
   const [accountCreated, setAccountCreated] = useState(false)
+  const [message, setMessage] = useState('')
   const { addUser, users } = useUserContext()
   const defaultFormState = {
     name: '',
@@ -18,7 +20,8 @@ function CreateAccount() {
 
   function handleSubmit(data) {
     if (users.find((user) => user.email === data.email)) {
-      alert('User with that email address already exists')
+      setMessage('User with that email address already exists')
+      setShowToast(true)
     } else {
       addUser({
         name: data.name,
@@ -27,12 +30,18 @@ function CreateAccount() {
         balance: 100,
       })
       setAccountCreated(true)
+      setMessage('Account Created')
+      setShowToast(true)
     }
   }
 
   return (
     <>
-      {accountCreated && <ToastComponent message={'Account created'} />}
+      <ToastComponent
+        message={message}
+        show={showToast}
+        onClose={() => setShowToast(false)}
+      />
       <CardComponent
         bgcolor='primary'
         txtcolor='white'

@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import Toast from 'react-bootstrap/Toast'
 
 function ToastComponent(props) {
-  const { message } = props
-  const [show, setShow] = useState(true)
+  const { message, show, onClose } = props
 
   return (
-    <Toast onClose={() => setShow(false)} show={show} delay={2000} autohide>
-      <Toast.Body>{message}</Toast.Body>
+    <Toast onClose={onClose} show={show} delay={3000} autohide>
+      <Toast.Header>{message}</Toast.Header>
     </Toast>
   )
 }

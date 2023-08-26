@@ -9,21 +9,29 @@ import UserSelectorComponent from '../base/UserSelectorComponent'
 function Withdraw() {
   const defaultFormState = { amount: '' }
   const { currentUser, changeBalance } = useUserContext()
-  const [updated, setUpdated] = useState(false)
+  const [showToast, setShowToast] = useState(false)
+  const [message, setMessage] = useState('')
 
   const handleSubmit = (data) => {
+    setShowToast(false)
     if (currentUser.balance - Number(data.amount) < 0) {
-      alert('Insufficient Funds')
+      setMessage('Insufficient Funds')
+      setShowToast(true)
     } else {
       let inputAmount = Number(data.amount)
       changeBalance(inputAmount, 'subtract')
-      setUpdated(true)
+      setMessage('Withdrawal Successful')
+      setShowToast(true)
     }
   }
 
   return (
     <>
-      {updated && <ToastComponent message={'Withdrawal Complete'} />}
+      <ToastComponent
+        message={message}
+        show={showToast}
+        onClose={() => setShowToast(false)}
+      />
       <CardComponent
         header={
           'Withdrawn from account for ' +
