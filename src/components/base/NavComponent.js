@@ -2,7 +2,7 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 function NavComponent() {
   return (
@@ -14,18 +14,18 @@ function NavComponent() {
           </Link>
           <Navbar.Toggle aria-controls='nav-collapse' />
           <Navbar.Collapse id='nav-collapse'>
-            <Link to='/create-account' className='nav-link'>
+            <NavLink to='/create-account' className='nav-link'>
               Create Account
-            </Link>
-            <Link to='/deposit' className='nav-link'>
+            </NavLink>
+            <NavLink to='/deposit' className='nav-link'>
               Deposit
-            </Link>
-            <Link to='/withdraw' className='nav-link'>
+            </NavLink>
+            <NavLink to='/withdraw' className='nav-link'>
               Withdraw
-            </Link>
-            <Link to='/all-data' className='nav-link'>
+            </NavLink>
+            <NavLink to='/all-data' className='nav-link'>
               All Data
-            </Link>
+            </NavLink>
           </Navbar.Collapse>
         </Nav>
       </Container>

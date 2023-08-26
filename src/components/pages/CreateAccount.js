@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react'
-import { UserContext } from '../../config/Context'
+import React, { useState } from 'react'
 import CardComponent from '../base/CardComponent'
 import FormComponent from '../base/FormComponent'
 import { PasswordField, NameField, EmailField } from '../../config/FormFields'

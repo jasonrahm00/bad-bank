@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import CardComponent from '../base/CardComponent'
 import bank from '../../assets/bank.png'
 
