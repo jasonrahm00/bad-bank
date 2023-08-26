@@ -24,16 +24,18 @@ const UserContext = createContext()
 
 const UserContextProvider = ({ children }) => {
   const [users, setUsers] = useState(defaultUsers)
+  const [currentUser, setCurrent] = useState(defaultUsers[0])
 
   const addUser = (newUser) => {
     setUsers([...users, newUser])
   }
-  // const setCurrentUser = (currentUser) => {
-  //   setUserData((userData.currentUser = currentUser))
-  // }
+
+  const changeUser = (newCurrent) => {
+    setCurrent(newCurrent)
+  }
 
   return (
-    <UserContext.Provider value={{ users, addUser }}>
+    <UserContext.Provider value={{ users, addUser, currentUser, changeUser }}>
       {children}
     </UserContext.Provider>
   )
