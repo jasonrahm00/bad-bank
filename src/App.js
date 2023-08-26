@@ -6,12 +6,12 @@ import Deposit from './components/pages/Deposit'
 import Withdraw from './components/pages/Withdraw'
 import AllData from './components/pages/AllData'
 import NavComponent from './components/base/NavComponent'
-import UserContextProvider, { UserContext } from './config/Context'
+import UserContextProvider from './config/Context'
 import Container from 'react-bootstrap/Container'
 
 function App() {
   return (
-    <div className='App'>
+    <div className='App position-relative'>
       <UserContextProvider>
         <Router>
           <NavComponent />

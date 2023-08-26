@@ -1,1 +1,26 @@
+/* Base Classes */
+html {
+  overflow-y: scroll;
+}
 
+/* Toast Classes */
+.toast {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  top: 0;
+}
+
+.toast .toast-header {
+  color: white;
+  justify-content: center;
+}
+
+.toast.bg-success .toast-header {
+  background-color: var(--bs-success);
+}
+
+.toast.bg-danger .toast-header {
+  background-color: var(--bs-danger);
+}

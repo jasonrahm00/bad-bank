@@ -51,12 +51,8 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
     <Form onSubmit={handleSubmit}>
       {fields.map((field) => {
         return (
-          <>
-            <FloatingLabel
-              key={field.name}
-              controlId={field.name}
-              label={field.label}
-            >
+          <Form.Group key={field.name}>
+            <FloatingLabel controlId={field.name} label={field.label}>
               <Form.Control
                 type={field.type}
                 placeholder={field.placeholder}
@@ -68,7 +64,7 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
             {formErrors[field.name] && (
               <p className='text-danger'>{formErrors[field.name]}</p>
             )}
-          </>
+          </Form.Group>
         )
       })}
       <Button variant='secondary' type='submit' disabled={!formFilled}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Toast from 'react-bootstrap/Toast'
 
 function ToastComponent(props) {
@@ -9,7 +9,7 @@ function ToastComponent(props) {
       onClose={onClose}
       show={show}
       delay={3000}
-      autohide
+      autohide={true}
       bg={variant.toLowerCase()}
     >
       <Toast.Header>{message}</Toast.Header>
