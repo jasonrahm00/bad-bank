@@ -35,13 +35,12 @@ const UserContextProvider = ({ children }) => {
     setCurrent(newCurrent)
   }
 
-  const changeBalance = (amount, operand) => {
-    console.log(amount)
-    if (operand === 'add') {
+  const changeBalance = (amount, operation) => {
+    if (operation === 'add') {
       let newBalance = (currentUser.balance += amount)
       updateBalance(newBalance)
     }
-    if (operand === 'subtract') {
+    if (operation === 'subtract') {
       let newBalance = (currentUser.balance -= amount)
       updateBalance(newBalance)
     }
