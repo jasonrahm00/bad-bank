@@ -10,29 +10,21 @@ import { toastDefault, accountFormDefault } from '../../config/Defaults'
 function CreateAccount() {
   const [toast, setToast] = useState(toastDefault)
   const [accountCreated, setAccountCreated] = useState(false)
-  const { addUser, users } = useUserContext()
+  const { addUser } = useUserContext()
 
   function handleSubmit(data) {
-    if (users.find((user) => user.email === data.email)) {
-      setToast({
-        message: 'Account with that email address already exists',
-        showToast: true,
-        variant: 'danger',
-      })
-    } else {
-      addUser({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        balance: 100,
-      })
-      setToast({
-        message: 'Account Created',
-        showToast: true,
-        variant: 'success',
-      })
-      setAccountCreated(true)
-    }
+    addUser({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      balance: 100,
+    })
+    setToast({
+      message: 'Account Created',
+      showToast: true,
+      variant: 'success',
+    })
+    setAccountCreated(true)
   }
 
   return (

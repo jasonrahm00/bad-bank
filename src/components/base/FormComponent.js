@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
+import { useUserContext } from '../../config/Context'
 
 function FormComponent({ fields, onSubmit, defaultFormState }) {
+  const { users } = useUserContext()
   const [formData, setFormData] = useState(defaultFormState)
   const [formErrors, setFormErrors] = useState({})
   const [formFilled, setFormFilled] = useState(false)
@@ -41,6 +43,11 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
           if (!rule.validate(value)) {
             errors[name] = rule.errorMessage || 'Invalid Input'
           }
+        }
+      }
+      if (field.name === 'email') {
+        if (users.find((user) => user.email === formData.email)) {
+          errors['email'] = 'Account with that email already exists'
         }
       }
     })
