@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import FloatingLabel from 'react-bootstrap/FloatingLabel'
 
 function FormComponent({ fields, onSubmit, defaultFormState }) {
   const [formData, setFormData] = useState(defaultFormState)
@@ -50,19 +51,24 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
     <Form onSubmit={handleSubmit}>
       {fields.map((field) => {
         return (
-          <Form.Group key={field.name} controlId={field.name}>
-            <Form.Label>{field.label}</Form.Label>
-            <Form.Control
-              type={field.type}
-              placeholder={field.placeholder}
-              name={field.name}
-              value={formData[field.name] || ''}
-              onChange={handleInputChange}
-            />
+          <>
+            <FloatingLabel
+              key={field.name}
+              controlId={field.name}
+              label={field.label}
+            >
+              <Form.Control
+                type={field.type}
+                placeholder={field.placeholder}
+                name={field.name}
+                value={formData[field.name] || ''}
+                onChange={handleInputChange}
+              />
+            </FloatingLabel>
             {formErrors[field.name] && (
-              <p style={{ color: 'red' }}>{formErrors[field.name]}</p>
+              <p className='text-danger'>{formErrors[field.name]}</p>
             )}
-          </Form.Group>
+          </>
         )
       })}
       <Button variant='secondary' type='submit' disabled={!formFilled}>

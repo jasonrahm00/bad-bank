@@ -5,7 +5,7 @@ function CardComponent(props) {
   const { header, title, text, body, status, bgcolor, txtcolor } = props
 
   return (
-    <Card as='section' bg={bgcolor} text={txtcolor}>
+    <Card as='section' bg={bgcolor}>
       <Card.Title as='h1'>{header}</Card.Title>
       <Card.Body>
         {title && <Card.Subtitle as='h2'>{title}</Card.Subtitle>}
