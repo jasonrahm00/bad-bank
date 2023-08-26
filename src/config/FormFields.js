@@ -35,7 +35,7 @@ export const PasswordField = {
   type: 'text',
   name: 'password',
   placeholder: 'Enter your password',
-  label: 'Password',
+  label: 'Password (Minimum of 8 characters)',
   validation: [
     validationRules.required,
     {
