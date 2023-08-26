@@ -12,14 +12,6 @@ function Withdraw() {
   const [toast, setToast] = useState(toastDefault)
 
   const handleSubmit = (data) => {
-    if (!currentUser.email) {
-      setToast({
-        message: 'Please select a user',
-        showToast: true,
-        variant: 'danger',
-      })
-      return
-    }
     if (currentUser.balance - Number(data.amount) < 0) {
       setToast({
         message: 'Insufficient Funds',

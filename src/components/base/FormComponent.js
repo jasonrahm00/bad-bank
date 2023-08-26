@@ -5,7 +5,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import { useUserContext } from '../../config/Context'
 
 function FormComponent({ fields, onSubmit, defaultFormState }) {
-  const { users } = useUserContext()
+  const { users, currentUser } = useUserContext()
   const [formData, setFormData] = useState(defaultFormState)
   const [formErrors, setFormErrors] = useState({})
   const [formFilled, setFormFilled] = useState(false)
@@ -50,6 +50,11 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
           errors['email'] = 'Account with that email already exists'
         }
       }
+      if (field.name === 'amount') {
+        if (!currentUser.email) {
+          errors['amount'] = 'Please select a user'
+        }
+      }
     })
     return errors
   }
@@ -68,9 +73,9 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
                 onChange={handleInputChange}
               />
             </FloatingLabel>
-            {formErrors[field.name] && (
-              <p className='text-danger'>{formErrors[field.name]}</p>
-            )}
+            <p className='text-danger m-0'>
+              {formErrors[field.name] ? formErrors[field.name] : <>&nbsp;</>}
+            </p>
           </Form.Group>
         )
       })}
@@ -78,6 +83,7 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
         variant={!formFilled ? 'secondary' : 'primary'}
         type='submit'
         disabled={!formFilled}
+        className='mt-3'
       >
         Submit
       </Button>

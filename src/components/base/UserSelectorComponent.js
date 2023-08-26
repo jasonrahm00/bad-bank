@@ -13,7 +13,11 @@ function UserSelectorComponent() {
 
   return (
     <>
-      <FloatingLabel controlId='user-selector' label='Select User'>
+      <FloatingLabel
+        controlId='user-selector'
+        label='Select User'
+        className='mb-3'
+      >
         <Form.Select
           name='user'
           id='user-selector'
