@@ -44,8 +44,6 @@ function CreateAccount() {
         onClose={() => setToast(toastDefault)}
       />
       <CardComponent
-        bgcolor='primary'
-        txtcolor='white'
         header='Create Account'
         body={
           accountCreated ? (

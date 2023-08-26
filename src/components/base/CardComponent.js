@@ -2,16 +2,17 @@ import React from 'react'
 import Card from 'react-bootstrap/Card'
 
 function CardComponent(props) {
-  const { header, title, text, body, status, bgcolor, txtcolor } = props
+  const { header, subheader, text, body } = props
 
   return (
-    <Card as='section' bg={bgcolor}>
-      <Card.Title as='h1'>{header}</Card.Title>
+    <Card as='main'>
       <Card.Body>
-        {title && <Card.Subtitle as='h2'>{title}</Card.Subtitle>}
-        {text && <p className='card-text'>{text}</p>}
-        {body}
-        {status && <div id='createStatus'>{status}</div>}
+        <header>
+          {header && <Card.Title as='h1'>{header}</Card.Title>}
+          {subheader && <Card.Subtitle as='h2'>{subheader}</Card.Subtitle>}
+          {text && <p className='card-text'>{text}</p>}
+        </header>
+        {body && body}
       </Card.Body>
     </Card>
   )

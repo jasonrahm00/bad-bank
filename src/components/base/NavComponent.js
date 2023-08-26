@@ -2,16 +2,16 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 function NavComponent() {
   return (
     <Navbar expand='lg'>
       <Container>
         <Nav>
-          <Link to='/' className='navbar-brand'>
+          <NavLink to='/' className='navbar-brand'>
             BadBank
-          </Link>
+          </NavLink>
           <Navbar.Toggle aria-controls='nav-collapse' />
           <Navbar.Collapse id='nav-collapse'>
             <NavLink to='/create-account' className='nav-link'>

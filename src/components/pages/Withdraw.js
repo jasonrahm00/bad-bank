@@ -51,7 +51,9 @@ function Withdraw() {
           'Withdrawn from account for ' +
           (currentUser.name ? currentUser.name : '')
         }
-        title={'Balance: $' + (currentUser.balance ? currentUser.balance : '')}
+        subheader={
+          'Balance: $' + (currentUser.balance ? currentUser.balance : '')
+        }
         body={
           <>
             <UserSelectorComponent />

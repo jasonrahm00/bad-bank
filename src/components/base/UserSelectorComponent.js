@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 
 function UserSelectorComponent() {
-  const { users, changeUser } = useUserContext()
+  const { users, changeUser, currentUser } = useUserContext()
 
   const handleChange = (e) => {
     const newCurrent = users.find((user) => user.email === e.target.value)
@@ -17,7 +17,7 @@ function UserSelectorComponent() {
         <Form.Select
           name='user'
           id='user-selector'
-          defaultValue='default'
+          defaultValue={currentUser.email ? currentUser.email : 'default'}
           onChange={handleChange}
         >
           <option value='default' disabled>
