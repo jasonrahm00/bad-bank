@@ -9,22 +9,18 @@ import UserSelectorComponent from '../base/UserSelectorComponent'
 
 function Deposit() {
   const defaultFormState = { amount: '' }
-  const { currentUser } = useUserContext()
-  // const [currentUser, setUser] = useState(ctx.currentUser)
-  // const [updated, setUpdated] = useState(false)
-  // const [balance, setBalance] = useState(
-  //   ctx.currentUser ? ctx.currentUser.balance : 0
-  // )
+  const { currentUser, changeBalance } = useUserContext()
+  const [updated, setUpdated] = useState(false)
 
-  // const handleSubmit = (data) => {
-  //   let newBalance = (ctx.currentUser.balance += Number(data.amount))
-  //   setBalance(newBalance)
-  //   setUpdated(true)
-  // }
+  const handleSubmit = (data) => {
+    let inputAmount = Number(data.amount)
+    changeBalance(inputAmount, 'add')
+    setUpdated(true)
+  }
 
   return (
     <>
-      {/* {updated && <ToastComponent message={'Deposit Made'} />} */}
+      {updated && <ToastComponent message={'Deposit Made'} />}
       <CardComponent
         header={
           'Depost into account for ' + (currentUser ? currentUser.name : '')
@@ -33,11 +29,11 @@ function Deposit() {
         body={
           <>
             <UserSelectorComponent />
-            {/* <FormComponent
+            <FormComponent
               fields={[AmountField]}
               onSubmit={handleSubmit}
               defaultFormState={defaultFormState}
-            /> */}
+            />
           </>
         }
       />

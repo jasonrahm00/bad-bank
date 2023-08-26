@@ -25,6 +25,7 @@ const UserContext = createContext()
 const UserContextProvider = ({ children }) => {
   const [users, setUsers] = useState(defaultUsers)
   const [currentUser, setCurrent] = useState(defaultUsers[0])
+  const [currentBalance, updateBalance] = useState(currentUser.balance)
 
   const addUser = (newUser) => {
     setUsers([...users, newUser])
@@ -34,8 +35,28 @@ const UserContextProvider = ({ children }) => {
     setCurrent(newCurrent)
   }
 
+  const changeBalance = (amount, operand) => {
+    console.log(amount)
+    if (operand === 'add') {
+      let newBalance = (currentUser.balance += amount)
+      updateBalance(newBalance)
+    }
+    if (operand === 'subtract') {
+      let newBalance = (currentUser.balance -= amount)
+      updateBalance(newBalance)
+    }
+  }
+
   return (
-    <UserContext.Provider value={{ users, addUser, currentUser, changeUser }}>
+    <UserContext.Provider
+      value={{
+        users,
+        addUser,
+        currentUser,
+        changeUser,
+        changeBalance,
+      }}
+    >
       {children}
     </UserContext.Provider>
   )
