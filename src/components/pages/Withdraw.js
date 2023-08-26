@@ -12,7 +12,6 @@ function Withdraw() {
   const [updated, setUpdated] = useState(false)
 
   const handleSubmit = (data) => {
-    setUpdated(false)
     if (currentUser.balance - Number(data.amount) < 0) {
       alert('Insufficient Funds')
     } else {

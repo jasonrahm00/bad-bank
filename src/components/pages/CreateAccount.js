@@ -8,7 +8,7 @@ import { useUserContext } from '../../config/Context'
 
 function CreateAccount() {
   const [accountCreated, setAccountCreated] = useState(false)
-  const { addUser } = useUserContext()
+  const { addUser, users } = useUserContext()
   const defaultFormState = {
     name: '',
     email: '',
@@ -17,13 +17,17 @@ function CreateAccount() {
   }
 
   function handleSubmit(data) {
-    addUser({
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      balance: 100,
-    })
-    setAccountCreated(true)
+    if (users.find((user) => user.email === data.email)) {
+      alert('User with that email address already exists')
+    } else {
+      addUser({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        balance: 100,
+      })
+      setAccountCreated(true)
+    }
   }
 
   return (
