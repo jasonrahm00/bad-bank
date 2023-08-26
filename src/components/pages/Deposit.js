@@ -22,9 +22,10 @@ function Deposit() {
       {updated && <ToastComponent message={'Deposit Made'} />}
       <CardComponent
         header={
-          'Depost into account for ' + (currentUser ? currentUser.name : '')
+          'Depost into account for ' +
+          (currentUser.name ? currentUser.name : '')
         }
-        title={'Balance: $' + currentUser.balance}
+        title={'Balance: $' + (currentUser.balance ? currentUser.balance : '')}
         body={
           <>
             <UserSelectorComponent />

@@ -24,7 +24,7 @@ const UserContext = createContext()
 
 const UserContextProvider = ({ children }) => {
   const [users, setUsers] = useState(defaultUsers)
-  const [currentUser, setCurrent] = useState(defaultUsers[0])
+  const [currentUser, setCurrent] = useState({})
   const [currentBalance, updateBalance] = useState(currentUser.balance)
 
   const addUser = (newUser) => {

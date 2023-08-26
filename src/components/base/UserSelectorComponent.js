@@ -20,7 +20,7 @@ function UserSelectorComponent() {
           defaultValue={currentUser ? currentUser.email : 'default'}
           onChange={handleChange}
         >
-          <option value='default' disabled>
+          <option value='default' disabled selected>
             Select User
           </option>
           {users &&

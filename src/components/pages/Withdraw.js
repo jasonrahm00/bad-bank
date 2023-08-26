@@ -26,9 +26,10 @@ function Withdraw() {
       {updated && <ToastComponent message={'Withdrawal Complete'} />}
       <CardComponent
         header={
-          'Withdrawn from account for ' + (currentUser ? currentUser.name : '')
+          'Withdrawn from account for ' +
+          (currentUser.name ? currentUser.name : '')
         }
-        title={'Balance: $' + currentUser.balance}
+        title={'Balance: $' + (currentUser.balance ? currentUser.balance : '')}
         body={
           <>
             <UserSelectorComponent />
