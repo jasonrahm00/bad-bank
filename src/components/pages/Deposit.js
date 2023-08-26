@@ -32,7 +32,7 @@ function Deposit() {
       />
       <CardComponent
         header={
-          'Depost into ' +
+          'Deposit into ' +
           (currentUser.name ? currentUser.name + "'s " : '') +
           'Account'
         }
