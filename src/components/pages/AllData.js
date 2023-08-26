@@ -1,9 +1,11 @@
 import React, { useContext } from 'react'
 import { UserContext } from '../../config/Context'
 import Table from 'react-bootstrap/Table'
+import { useUserContext } from '../../config/Context'
 
 function AllData() {
-  const ctx = useContext(UserContext)
+  const { users } = useUserContext()
+
   return (
     <>
       <h1>All Data</h1>
@@ -17,8 +19,8 @@ function AllData() {
           </tr>
         </thead>
         <tbody>
-          {ctx.users &&
-            ctx.users.map((user, index) => {
+          {users &&
+            users.map((user, index) => {
               return (
                 <tr key={index}>
                   <td>{user.name}</td>

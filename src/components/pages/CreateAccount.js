@@ -5,11 +5,11 @@ import FormComponent from '../base/FormComponent'
 import { PasswordField, NameField, EmailField } from '../../config/FormFields'
 import Button from 'react-bootstrap/Button'
 import ToastComponent from '../base/ToastComponent'
-import { getAccountNumber } from '../../config/Utils'
+import { useUserContext } from '../../config/Context'
 
 function CreateAccount() {
   const [accountCreated, setAccountCreated] = useState(false)
-  const ctx = useContext(UserContext)
+  const { addUser } = useUserContext()
   const defaultFormState = {
     name: '',
     email: '',
@@ -17,13 +17,12 @@ function CreateAccount() {
     accountNumber: '',
   }
 
-  function handleCreate(data) {
-    ctx.users.push({
+  function handleSubmit(data) {
+    addUser({
       name: data.name,
       email: data.email,
       password: data.password,
       balance: 100,
-      accountNumber: getAccountNumber(),
     })
     setAccountCreated(true)
   }
@@ -43,7 +42,7 @@ function CreateAccount() {
           ) : (
             <FormComponent
               fields={[NameField, EmailField, PasswordField]}
-              onSubmit={handleCreate}
+              onSubmit={handleSubmit}
               defaultFormState={defaultFormState}
             />
           )

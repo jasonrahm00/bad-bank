@@ -1,10 +1,8 @@
 import React, { useContext } from 'react'
-import { UserContext } from '../../config/Context'
 import CardComponent from '../base/CardComponent'
 import bank from '../../assets/bank.png'
 
 function Home() {
-  const ctx = useContext(UserContext)
   return (
     <>
       <CardComponent
