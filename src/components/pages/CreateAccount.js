@@ -47,6 +47,7 @@ function CreateAccount() {
               fields={[NameField, EmailField, PasswordField]}
               onSubmit={handleSubmit}
               defaultFormState={accountFormDefault}
+              ctaText='Create Account'
             />
           )
         }

@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import { useUserContext } from '../../config/Context'
 
-function FormComponent({ fields, onSubmit, defaultFormState }) {
+function FormComponent({ fields, onSubmit, defaultFormState, ctaText }) {
   const { users, currentUser } = useUserContext()
   const [formData, setFormData] = useState(defaultFormState)
   const [formErrors, setFormErrors] = useState({})
@@ -86,7 +86,7 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
         disabled={!formFilled}
         className='mt-3'
       >
-        Submit
+        {ctaText ? ctaText : 'Submit'}
       </Button>
     </Form>
   )

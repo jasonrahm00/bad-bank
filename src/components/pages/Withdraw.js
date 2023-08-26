@@ -54,6 +54,7 @@ function Withdraw() {
               fields={[AmountField]}
               onSubmit={handleSubmit}
               defaultFormState={amountDefault}
+              ctaText='Withdraw'
             />
           </>
         }

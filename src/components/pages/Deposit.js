@@ -46,6 +46,7 @@ function Deposit() {
               fields={[AmountField]}
               onSubmit={handleSubmit}
               defaultFormState={amountDefault}
+              ctaText='Deposit'
             />
           </>
         }
