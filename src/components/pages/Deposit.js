@@ -41,8 +41,9 @@ function Deposit() {
       />
       <CardComponent
         header={
-          'Depost into account for ' +
-          (currentUser.name ? currentUser.name : '')
+          'Depost into ' +
+          (currentUser.name ? currentUser.name + "'s " : '') +
+          'Account'
         }
         subheader={
           'Balance: $' + (currentUser.balance ? currentUser.balance : '')

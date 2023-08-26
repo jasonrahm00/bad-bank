@@ -3,6 +3,29 @@ html {
   overflow-y: scroll;
 }
 
+/* Nav Classes */
+.nav-link.active {
+  position: relative;
+}
+
+.nav-link.active:after {
+  content: '';
+  position: absolute;
+  border-bottom: 2px solid white;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.nav-link:not(:active):hover {
+  color: white;
+}
+
+/* Main Content */
+main {
+  margin-top: 50px;
+}
+
 /* Toast Classes */
 .toast {
   position: absolute;

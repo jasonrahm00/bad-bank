@@ -5,7 +5,7 @@ function CardComponent(props) {
   const { header, subheader, text, body } = props
 
   return (
-    <Card as='main'>
+    <Card as='main' className='col-9'>
       <Card.Body>
         <header>
           {header && <Card.Title as='h1'>{header}</Card.Title>}

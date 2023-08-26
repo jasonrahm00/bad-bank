@@ -48,8 +48,9 @@ function Withdraw() {
       />
       <CardComponent
         header={
-          'Withdrawn from account for ' +
-          (currentUser.name ? currentUser.name : '')
+          'Withdraw from ' +
+          (currentUser.name ? currentUser.name + "'s " : '') +
+          'Account'
         }
         subheader={
           'Balance: $' + (currentUser.balance ? currentUser.balance : '')

@@ -67,7 +67,11 @@ function FormComponent({ fields, onSubmit, defaultFormState }) {
           </Form.Group>
         )
       })}
-      <Button variant='secondary' type='submit' disabled={!formFilled}>
+      <Button
+        variant={!formFilled ? 'secondary' : 'primary'}
+        type='submit'
+        disabled={!formFilled}
+      >
         Submit
       </Button>
     </Form>

@@ -15,7 +15,7 @@ function CreateAccount() {
   function handleSubmit(data) {
     if (users.find((user) => user.email === data.email)) {
       setToast({
-        message: 'User with that email address already exists',
+        message: 'Account with that email address already exists',
         showToast: true,
         variant: 'danger',
       })
