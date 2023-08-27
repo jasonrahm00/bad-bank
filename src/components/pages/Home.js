@@ -13,7 +13,7 @@ function Home() {
           <img src={bank} className='img-fluid' alt='' />
         </div>
       }
-      footerText="*You're money isn't actually safe with us"
+      footerText="*Your money isn't actually safe with us"
     />
   )
 }
