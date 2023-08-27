@@ -1,11 +1,10 @@
 const emailRegex =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-const validationRules = {
-  required: {
-    name: 'required',
-    validate: (value) => !!value.trim(),
-    errorMessage: 'Field required',
-  },
+
+const fieldRequired = {
+  name: 'required',
+  validate: (value) => !!value.trim(),
+  errorMessage: 'Field required',
 }
 
 export const NameField = {
@@ -13,7 +12,7 @@ export const NameField = {
   name: 'name',
   placeholder: 'Enter your name',
   label: 'Name',
-  validation: [validationRules.required],
+  validation: [fieldRequired],
 }
 
 export const EmailField = {
@@ -22,7 +21,7 @@ export const EmailField = {
   placeholder: 'Enter your email',
   label: 'Email',
   validation: [
-    validationRules.required,
+    fieldRequired,
     {
       name: 'validEmail',
       validate: (value) => value.match(emailRegex),
@@ -37,7 +36,7 @@ export const PasswordField = {
   placeholder: 'Enter your password',
   label: 'Password (Minimum of 8 characters)',
   validation: [
-    validationRules.required,
+    fieldRequired,
     {
       name: 'pwLength',
       validate: (value) => value.length >= 8,
@@ -52,7 +51,7 @@ export const AmountField = {
   placeholder: 'Enter Amount',
   label: 'Amount',
   validation: [
-    validationRules.required,
+    fieldRequired,
     {
       name: 'isNum',
       validate: (value) => !isNaN(value),
