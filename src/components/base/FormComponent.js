@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
-import { useUserContext } from '../../config/Context'
 
 function FormComponent({ fields, onSubmit, defaultFormState, ctaText }) {
-  const { users, currentUser } = useUserContext()
   const [formData, setFormData] = useState(defaultFormState)
   const [formErrors, setFormErrors] = useState({})
   const [formFilled, setFormFilled] = useState(false)
-
-  useEffect(() => {
-    setFormErrors({})
-  }, [currentUser])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target

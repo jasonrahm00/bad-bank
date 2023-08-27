@@ -12,32 +12,30 @@ function UserSelectorComponent() {
   }
 
   return (
-    <>
-      <FloatingLabel
-        controlId='user-selector'
-        label='Select User'
-        className='mb-3'
+    <FloatingLabel
+      controlId='user-selector'
+      label='Select User'
+      className='mb-3'
+    >
+      <Form.Select
+        name='user'
+        id='user-selector'
+        defaultValue={currentUser.email ? currentUser.email : 'default'}
+        onChange={handleChange}
       >
-        <Form.Select
-          name='user'
-          id='user-selector'
-          defaultValue={currentUser.email ? currentUser.email : 'default'}
-          onChange={handleChange}
-        >
-          <option value='default' disabled>
-            Select User
-          </option>
-          {users &&
-            users.map((user, index) => {
-              return (
-                <option value={user.email} key={index}>
-                  {user.name}
-                </option>
-              )
-            })}
-        </Form.Select>
-      </FloatingLabel>
-    </>
+        <option value='default' disabled>
+          Select User
+        </option>
+        {users &&
+          users.map((user, index) => {
+            return (
+              <option value={user.email} key={index}>
+                {user.name}
+              </option>
+            )
+          })}
+      </Form.Select>
+    </FloatingLabel>
   )
 }
 

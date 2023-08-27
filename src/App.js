@@ -11,7 +11,7 @@ import Container from 'react-bootstrap/Container'
 
 function App() {
   return (
-    <div className='App position-relative'>
+    <div className='App'>
       <UserContextProvider>
         <Router>
           <NavComponent />
