@@ -32,7 +32,7 @@ main {
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
-  top: 0;
+  top: -40px;
 }
 
 .toast .toast-header {

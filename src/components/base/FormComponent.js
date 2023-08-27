@@ -2,11 +2,15 @@ import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
+import ToastComponent from '../base/ToastComponent'
+import { toastDefault } from '../../config/Defaults'
 
 function FormComponent({ fields, onSubmit, defaultFormState, ctaText }) {
+  const [toast, setToast] = useState(toastDefault)
   const [formData, setFormData] = useState(defaultFormState)
   const [formErrors, setFormErrors] = useState({})
   const [formFilled, setFormFilled] = useState(false)
+  const [accountCreated, setAccountCreated] = useState(false)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -15,16 +19,33 @@ function FormComponent({ fields, onSubmit, defaultFormState, ctaText }) {
     setFormFilled(Object.values({ ...formData, [name]: value }).some(Boolean))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const errors = validateForm()
     if (Object.keys(errors).length === 0) {
-      if (onSubmit) {
-        if (onSubmit(formData)) {
+      try {
+        const result = await onSubmit(formData)
+        if (result.success) {
+          setToast({
+            message: result.message,
+            showToast: true,
+            variant: 'success',
+          })
+          if (result.type == 'account') {
+            setAccountCreated(true)
+          }
           setFormData(defaultFormState)
           setFormFilled(false)
           setFormErrors({})
+        } else {
+          throw result.message
         }
+      } catch (error) {
+        setToast({
+          message: error.message,
+          showToast: true,
+          variant: 'danger',
+        })
       }
     } else {
       setFormErrors(errors)
@@ -51,34 +72,52 @@ function FormComponent({ fields, onSubmit, defaultFormState, ctaText }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      {fields.map((field) => {
-        return (
-          <Form.Group key={field.name}>
-            <FloatingLabel controlId={field.name} label={field.label}>
-              <Form.Control
-                type={field.type}
-                placeholder={field.placeholder}
-                name={field.name}
-                value={formData[field.name] || ''}
-                onChange={handleInputChange}
-              />
-            </FloatingLabel>
-            <p className='text-danger m-0'>
-              {formErrors[field.name] ? formErrors[field.name] : <>&nbsp;</>}
-            </p>
-          </Form.Group>
-        )
-      })}
-      <Button
-        variant={!formFilled ? 'secondary' : 'primary'}
-        type='submit'
-        disabled={!formFilled}
-        className='mt-3'
-      >
-        {ctaText ? ctaText : 'Submit'}
-      </Button>
-    </Form>
+    <>
+      <ToastComponent
+        message={toast.message}
+        show={toast.showToast}
+        variant={toast.variant}
+        onClose={() => setToast(toastDefault)}
+      />
+      <Form onSubmit={handleSubmit}>
+        {fields.map((field) => {
+          return (
+            <Form.Group key={field.name}>
+              <FloatingLabel controlId={field.name} label={field.label}>
+                <Form.Control
+                  type={field.type}
+                  placeholder={field.placeholder}
+                  name={field.name}
+                  value={formData[field.name] || ''}
+                  onChange={handleInputChange}
+                />
+              </FloatingLabel>
+              <p className='text-danger m-0'>
+                {formErrors[field.name] ? formErrors[field.name] : <>&nbsp;</>}
+              </p>
+            </Form.Group>
+          )
+        })}
+        {accountCreated ? (
+          <Button
+            variant='success'
+            className='mt-3'
+            onClick={() => setAccountCreated(false)}
+          >
+            Add another account?
+          </Button>
+        ) : (
+          <Button
+            variant={!formFilled ? 'secondary' : 'primary'}
+            type='submit'
+            disabled={!formFilled}
+            className='mt-3'
+          >
+            {ctaText ? ctaText : 'Submit'}
+          </Button>
+        )}
+      </Form>
+    </>
   )
 }
 

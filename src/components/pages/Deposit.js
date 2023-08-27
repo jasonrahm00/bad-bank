@@ -1,68 +1,51 @@
-import React, { useState } from 'react'
+import React from 'react'
 import CardComponent from '../base/CardComponent'
 import FormComponent from '../base/FormComponent'
-import ToastComponent from '../base/ToastComponent'
 import { AmountField } from '../../config/FormFields'
 import { useUserContext } from '../../config/Context'
 import UserSelectorComponent from '../base/UserSelectorComponent'
-import { amountDefault, toastDefault } from '../../config/Defaults'
+import { amountDefault } from '../../config/Defaults'
 
 function Deposit() {
   const { currentUser, changeBalance } = useUserContext()
-  const [toast, setToast] = useState(toastDefault)
 
   const handleSubmit = (data) => {
-    if (!currentUser.email) {
-      setToast({
-        message: 'Please select a user',
-        showToast: true,
-        variant: 'danger',
-      })
-      return false
-    } else {
-      let inputAmount = Number(data.amount)
-      changeBalance(inputAmount, 'add')
-
-      setToast({
-        message: 'Deposit Successful',
-        showToast: true,
-        variant: 'success',
-      })
-      return true
-    }
+    return new Promise((resolve, reject) => {
+      if (!currentUser.email) {
+        reject(new Error('Please select a user'))
+        return
+      }
+      setTimeout(() => {
+        let inputAmount = Number(data.amount)
+        changeBalance(inputAmount, 'add')
+        resolve({ success: true, message: 'Deposit Successful' })
+      }, 300)
+    })
   }
 
   return (
-    <>
-      <ToastComponent
-        message={toast.message}
-        show={toast.showToast}
-        variant={toast.variant}
-        onClose={() => setToast(toastDefault)}
-      />
-      <CardComponent
-        header={
-          'Deposit into ' +
-          (currentUser.name ? currentUser.name + "'s " : '') +
-          'Account'
-        }
-        subheader={
-          'Balance: $' +
-          (currentUser.balance !== undefined ? currentUser.balance : '')
-        }
-        body={
-          <>
-            <UserSelectorComponent />
-            <FormComponent
-              fields={[AmountField]}
-              onSubmit={handleSubmit}
-              defaultFormState={amountDefault}
-              ctaText='Deposit'
-            />
-          </>
-        }
-      />
-    </>
+    <CardComponent
+      header={
+        'Deposit into ' +
+        (currentUser.name !== undefined ? currentUser.name + "'s " : '') +
+        'Account'
+      }
+      subheader={
+        'Balance: $' +
+        (currentUser.balance !== undefined ? currentUser.balance : '')
+      }
+      body={
+        <>
+          <UserSelectorComponent />
+          <FormComponent
+            fields={[AmountField]}
+            onSubmit={handleSubmit}
+            defaultFormState={amountDefault}
+            ctaText='Deposit'
+          />
+        </>
+      }
+    />
   )
 }
 

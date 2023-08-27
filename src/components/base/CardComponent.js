@@ -14,7 +14,7 @@ function CardComponent(props) {
       {body && <Card.Body>{body}</Card.Body>}
       {footerText && (
         <Card.Footer>
-          <p class='m-0'>{footerText}</p>
+          <p className='m-0'>{footerText}</p>
         </Card.Footer>
       )}
     </Card>
