@@ -26,10 +26,11 @@ function FormComponent({ fields, onSubmit, defaultFormState, ctaText }) {
     const errors = validateForm()
     if (Object.keys(errors).length === 0) {
       if (onSubmit) {
-        onSubmit(formData)
-        setFormData(defaultFormState)
-        setFormFilled(false)
-        setFormErrors({})
+        if (onSubmit(formData)) {
+          setFormData(defaultFormState)
+          setFormFilled(false)
+          setFormErrors({})
+        }
       }
     } else {
       setFormErrors(errors)
@@ -49,18 +50,6 @@ function FormComponent({ fields, onSubmit, defaultFormState, ctaText }) {
             errors[name] = rule.errorMessage || 'Invalid Input'
             return
           }
-        }
-      }
-
-      if (field.name === 'email') {
-        if (users.find((user) => user.email === formData.email)) {
-          errors['email'] = 'Account with that email already exists'
-        }
-      }
-
-      if (field.name === 'amount') {
-        if (!currentUser.email) {
-          errors['amount'] = 'Please select a user'
         }
       }
     })

@@ -12,14 +12,24 @@ function Deposit() {
   const [toast, setToast] = useState(toastDefault)
 
   const handleSubmit = (data) => {
-    let inputAmount = Number(data.amount)
-    changeBalance(inputAmount, 'add')
+    if (!currentUser.email) {
+      setToast({
+        message: 'Please select a user',
+        showToast: true,
+        variant: 'danger',
+      })
+      return false
+    } else {
+      let inputAmount = Number(data.amount)
+      changeBalance(inputAmount, 'add')
 
-    setToast({
-      message: 'Deposit Successful',
-      showToast: true,
-      variant: 'success',
-    })
+      setToast({
+        message: 'Deposit Successful',
+        showToast: true,
+        variant: 'success',
+      })
+      return true
+    }
   }
 
   return (
@@ -37,7 +47,8 @@ function Deposit() {
           'Account'
         }
         subheader={
-          'Balance: $' + (currentUser.balance ? currentUser.balance : '')
+          'Balance: $' +
+          (currentUser.balance !== undefined ? currentUser.balance : '')
         }
         body={
           <>

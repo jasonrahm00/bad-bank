@@ -12,21 +12,29 @@ function Withdraw() {
   const [toast, setToast] = useState(toastDefault)
 
   const handleSubmit = (data) => {
-    if (currentUser.balance - Number(data.amount) < 0) {
+    if (!currentUser.email) {
+      setToast({
+        message: 'Please select a user',
+        showToast: true,
+        variant: 'danger',
+      })
+      return false
+    } else if (currentUser.balance - Number(data.amount) < 0) {
       setToast({
         message: 'Insufficient Funds',
         showToast: true,
         variant: 'danger',
       })
+      return false
     } else {
       let inputAmount = Number(data.amount)
       changeBalance(inputAmount, 'subtract')
-
       setToast({
         message: 'Withdrawal Successful',
         showToast: true,
         variant: 'success',
       })
+      return true
     }
   }
 
@@ -45,7 +53,8 @@ function Withdraw() {
           'Account'
         }
         subheader={
-          'Balance: $' + (currentUser.balance ? currentUser.balance : '')
+          'Balance: $' +
+          (currentUser.balance !== undefined ? currentUser.balance : '')
         }
         body={
           <>
