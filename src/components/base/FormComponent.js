@@ -79,34 +79,38 @@ function FormComponent({ fields, onSubmit, defaultFormState, ctaText }) {
         variant={toast.variant}
         onClose={() => setToast(toastDefault)}
       />
-      <Form onSubmit={handleSubmit}>
-        {fields.map((field) => {
-          return (
-            <Form.Group key={field.name}>
-              <FloatingLabel controlId={field.name} label={field.label}>
-                <Form.Control
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  name={field.name}
-                  value={formData[field.name] || ''}
-                  onChange={handleInputChange}
-                />
-              </FloatingLabel>
-              <p className='text-danger m-0'>
-                {formErrors[field.name] ? formErrors[field.name] : <>&nbsp;</>}
-              </p>
-            </Form.Group>
-          )
-        })}
-        {accountCreated ? (
-          <Button
-            variant='success'
-            className='mt-3'
-            onClick={() => setAccountCreated(false)}
-          >
-            Add another account?
-          </Button>
-        ) : (
+      {accountCreated ? (
+        <Button
+          variant='success'
+          className='mt-3'
+          onClick={() => setAccountCreated(false)}
+        >
+          Add another account?
+        </Button>
+      ) : (
+        <Form onSubmit={handleSubmit}>
+          {fields.map((field) => {
+            return (
+              <Form.Group key={field.name}>
+                <FloatingLabel controlId={field.name} label={field.label}>
+                  <Form.Control
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    name={field.name}
+                    value={formData[field.name] || ''}
+                    onChange={handleInputChange}
+                  />
+                </FloatingLabel>
+                <p className='text-danger m-0'>
+                  {formErrors[field.name] ? (
+                    formErrors[field.name]
+                  ) : (
+                    <>&nbsp;</>
+                  )}
+                </p>
+              </Form.Group>
+            )
+          })}
           <Button
             variant={!formFilled ? 'secondary' : 'primary'}
             type='submit'
@@ -115,8 +119,8 @@ function FormComponent({ fields, onSubmit, defaultFormState, ctaText }) {
           >
             {ctaText ? ctaText : 'Submit'}
           </Button>
-        )}
-      </Form>
+        </Form>
+      )}
     </>
   )
 }
