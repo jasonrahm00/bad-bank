@@ -1,6 +1,6 @@
 # Bad Bank
 
-The goal of this project is to track create a simulated banking interface using ReactJS and Bootstrap. In the interface users can create an account, deposit and withdraw money and see a list of existing users. There is no validation or security with this application - hence the name; the intent is to become familiarized with building React applications. This project was created as an assingment for the MIT Full-Stack MERN Certification. For information on other projects I created for this certficiation, visit my [Github Portfolio Page](https://jasonrahm00.github.io/).
+The goal of this project is to create a simulated banking interface using ReactJS and Bootstrap. In the interface, users can create an account, deposit and withdraw money and see a list of existing users. There is no validation or security with this application - hence the name: Bad Bank. The intent is to become familiarized with building React applications. This project was created as an assingment for the MIT Full-Stack MERN Certification. For information on other projects I created for this certficiation, visit my [Github Portfolio Page](https://jasonrahm00.github.io/).
 
 ## Hosted Site
 
@@ -34,6 +34,7 @@ The "assignment-starter-files" directory in the repository has mockups and user 
 ### Improvement Roadmap
 
 - Attach a database
+- Use API to send/receive data
 - Add Login page
 - Delete All Data page
 - Gatekeep so only authenticated users can see their acccount data, and no other account data
