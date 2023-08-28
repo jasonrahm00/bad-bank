@@ -4,7 +4,7 @@ The goal of this project is to create a simulated banking interface using ReactJ
 
 ## Hosted Site
 
-[Bad Bank](http://jason-rahmbankingapplication.s3-website-us-west-2.amazonaws.com/create-account)
+[Bad Bank](http://jason-rahmbankingapplication.s3-website-us-west-2.amazonaws.com/)
 
 ## Features
 
