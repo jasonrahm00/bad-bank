@@ -22,6 +22,7 @@ The "assignment-starter-files" directory in the repository has mockups and user 
 - No login or security. All data is publicly visible and can be manipulated
 
 ### Technology Used
+
 - ReactJS
 - Bootstrap
 
@@ -50,6 +51,13 @@ The "assignment-starter-files" directory in the repository has mockups and user 
 - From terminal, navigate into repository and run `npm install` to install packages
 - Run `npm start` to start up dev server
 - Run `npm build` to build project for deployment
+
+## Screenshots
+
+![Create Account Page](/src/assets/screenshots/create-account.PNG)
+![Deposit Page](/src/assets/screenshots/deposit.PNG)
+![Withdraw Page](/src/assets/screenshots/withdraw.PNG)
+![All Data Page](/src/assets/screenshots/all-data.PNG)
 
 ## Licensing
 
