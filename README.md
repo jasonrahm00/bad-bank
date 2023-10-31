@@ -21,6 +21,10 @@ The "assignment-starter-files" directory in the repository has mockups and user 
 - All Data page displays a table of all users and their data
 - No login or security. All data is publicly visible and can be manipulated
 
+### Technology Used
+- ReactJS
+- Bootstrap
+
 ### Enhancements
 
 - Installed React Bootstrap to speed up development; I was more interested in enhancing the functionality and spent very little time on the design. I consider this an MVP implementation to showcase features
