@@ -5,7 +5,7 @@ const dal = require('./dal.js')
 
 const port = 3000
 
-app.use(express.static('public'))
+//app.use(express.static('../frontend/build'))
 app.use(cors())
 
 // create account

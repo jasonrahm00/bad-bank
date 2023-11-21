@@ -1,11 +1,13 @@
 const MongoClient = require('mongodb').MongoClient
-const url = 'mongodb://localhost:27017'
+require('dotenv').config()
+
+const url = process.env.DATABASE_URI
 
 MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
   console.log('Connected!')
 
   // database name
-  const dbName = 'myproject'
+  const dbName = 'myProject'
   const db = client.db(dbName)
 
   // new user
