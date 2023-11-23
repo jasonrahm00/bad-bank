@@ -1,8 +1,13 @@
+const express = require('express')
+const app = express()
 const MongoClient = require('mongodb').MongoClient
+
 require('dotenv').config()
 
 const url = process.env.DATABASE_URI
-console.log(url)
+const PORT = process.env.PORT || 3000
+
+app.use(express.static('./frontend/build'))
 
 MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
   console.log('Connected!')
@@ -16,7 +21,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
   let email = name + '@mit.edu'
 
   // insert into customer table
-  let collection = db.collection('customers')
+  let collection = db.collection('users')
   let doc = { name, email }
   collection.insertOne(doc, { w: 1 }, function (err, result) {
     console.log('Document inserted')
@@ -24,10 +29,12 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
 
   // read data
   const customers = db
-    .collection('customers')
+    .collection('users')
     .find()
     .toArray(function (err, docs) {
       console.log('Collection:', docs)
       client.close()
     })
 })
+
+app.listen(PORT, () => console.log(`Server is listening on port: ${PORT}`))

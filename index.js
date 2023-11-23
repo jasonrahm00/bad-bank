@@ -2,7 +2,9 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const dal = require('./dal.js')
+
 app.use(express.static('./frontend/build'))
+
 app.use(cors())
 
 const PORT = process.env.PORT || 3000
