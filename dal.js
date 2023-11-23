@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient
-const url = 'mongodb://localhost:27017'
+const url = process.env.DATABASE_URI
 let db = null
 
 // connect to mongo
@@ -7,7 +7,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
   console.log('Successfully connected to db server')
 
   // connect to myproject database
-  db = client.db('myproject')
+  db = client.db('customers')
 })
 
 // create user account
