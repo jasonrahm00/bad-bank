@@ -1,9 +1,6 @@
 const { MongoClient } = require('mongodb')
-
 require('dotenv').config()
-
 const url = process.env.DATABASE_URI
-
 let db = null
 
 // connect to mongo
@@ -12,6 +9,17 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
   // connect to customers database
   db = client.db('customers')
 })
+
+async function getAllCustomers() {
+  return new Promise((resolve, reject) => {
+    const customers = db
+      .collection('users')
+      .find({})
+      .toArray((err, docs) => {
+        err ? reject(err) : resolve(docs)
+      })
+  })
+}
 
 // create test user
 function createTestUser() {
@@ -28,16 +36,20 @@ function createTestUser() {
 }
 
 // create user account
-function create(name, email, password) {
+function createUser(name, email, password) {
   return new Promise((resolve, reject) => {
     const collection = db.collection('users')
     const doc = { name, email, password, balance: 0 }
-    collection.insertOne(doc, { w: 1 }, (err, result) => {
+    collection.insertOne(doc, { w: 1 }, function (err, result) {
       err ? reject(err) : resolve(doc)
     })
   })
 }
 
+/****
+ * Starter Methods
+ * To be replaced
+ */
 // all users
 function all() {
   return new Promise((resolve, reject) => {
@@ -89,4 +101,4 @@ function update(email, amount) {
   })
 }
 
-module.exports = { create, all, findOne, find, update, createTestUser }
+module.exports = { createTestUser, getAllCustomers, createUser }
