@@ -1,4 +1,5 @@
-const MongoClient = require('mongodb').MongoClient
+const { MongoClient } = require('mongodb')
+
 require('dotenv').config()
 
 const url = process.env.DATABASE_URI
@@ -8,8 +9,8 @@ let db = null
 // connect to mongo
 MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
   console.log('Successfully connected to db server')
-
   // connect to myproject database
+  //https://stackoverflow.com/questions/62846151/typeerror-cannot-read-property-db-of-undefined-while-trying-to-mongodb-atlas
   db = client.db('customers')
 })
 

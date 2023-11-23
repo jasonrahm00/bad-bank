@@ -2,10 +2,10 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const dal = require('./dal.js')
-const port = 3000
-
 app.use(express.static('./frontend/build'))
 app.use(cors())
+
+const PORT = process.env.PORT || 3000
 
 // create account
 app.get('/account/create/:name/:email/:password', function (req, res) {
@@ -56,5 +56,4 @@ app.get('/account/balance/:email', function (req, res) {
   })
 })
 
-app.listen(port)
-console.log('Running on port: ' + port)
+app.listen(PORT, () => console.log(`Running on port ${PORT}`))
