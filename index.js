@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const dal = require('./dal.js')
-
 const port = 3000
 
 app.use(express.static('./frontend/build'))
