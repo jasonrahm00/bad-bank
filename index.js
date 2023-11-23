@@ -9,6 +9,15 @@ app.use(cors())
 
 const PORT = process.env.PORT || 3000
 
+// POST to create test account
+app.post('/api', (req, res) => {
+  dal.createTestUser().then((user) => {
+    console.log('test user created')
+    console.log(user)
+    res.send(user)
+  })
+})
+
 // create account
 app.get('/account/create/:name/:email/:password', function (req, res) {
   const { name, email, password } = req.params
