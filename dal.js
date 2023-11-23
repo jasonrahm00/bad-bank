@@ -8,7 +8,6 @@ let db = null
 // connect to mongo
 MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
   console.log('Successfully connected to db server')
-  console.log(url)
 
   // connect to myproject database
   db = client.db('customers')
@@ -17,7 +16,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
 // create user account
 function create(name, email, password) {
   return new Promise((resolve, reject) => {
-    const collection = db.collection('users')
+    const collection = db.collection('customers')
     const doc = { name, email, password, balance: 0 }
     collection.insertOne(doc, { w: 1 }, (err, result) => {
       err ? reject(err) : resolve(doc)
@@ -29,7 +28,7 @@ function create(name, email, password) {
 function all() {
   return new Promise((resolve, reject) => {
     const customers = db
-      .collection('users')
+      .collection('customers')
       .find({})
       .toArray((err, docs) => {
         err ? reject(err) : resolve(docs)
@@ -41,7 +40,7 @@ function all() {
 function find(email) {
   return new Promise((resolve, reject) => {
     const customers = db
-      .collection('users')
+      .collection('customers')
       .find({ email: email })
       .toArray(function (err, docs) {
         err ? reject(err) : resolve(docs)
@@ -53,7 +52,7 @@ function find(email) {
 function findOne(email) {
   return new Promise((resolve, reject) => {
     const customers = db
-      .collection('users')
+      .collection('customers')
       .findOne({ email: email })
       .then((doc) => resolve(doc))
       .catch((err) => reject(err))
@@ -64,7 +63,7 @@ function findOne(email) {
 function update(email, amount) {
   return new Promise((resolve, reject) => {
     const customers = db
-      .collection('users')
+      .collection('customers')
       .findOneAndUpdate(
         { email: email },
         { $inc: { balance: amount } },
