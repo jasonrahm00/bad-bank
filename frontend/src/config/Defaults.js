@@ -11,25 +11,9 @@ export const accountFormDefault = {
   accountNumber: '',
 }
 
-export const amountDefault = { amount: '' }
+export const loginFormDefaults = {
+  email: '',
+  password: '',
+}
 
-export const defaultUsers = [
-  {
-    name: 'Jane Doe',
-    email: 'jane@me.com',
-    password: 'Access123',
-    balance: 100,
-  },
-  {
-    name: 'Peter Parker',
-    email: 'peter@mit.edu',
-    password: 'Passcode321',
-    balance: 100,
-  },
-  {
-    name: 'John Smith',
-    email: 'john@msn.com',
-    password: 'Letmein33',
-    balance: 100,
-  },
-]
+export const amountDefault = { amount: '' }

@@ -4,6 +4,7 @@ const cors = require('cors')
 const dal = require('./dal.js')
 const bodyParser = require('body-parser')
 const utils = require('./utils.js')
+require('dotenv').config()
 
 app.use(express.static('./frontend/build'))
 app.use(cors())
