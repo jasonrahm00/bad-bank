@@ -14,6 +14,9 @@ function NavComponent() {
           </NavLink>
         </Nav>
         <Nav>
+          <NavLink to='/login' className='nav-link' title='Log In'>
+            Login
+          </NavLink>
           <NavLink
             to='/create-account'
             className='nav-link'
@@ -34,13 +37,6 @@ function NavComponent() {
             title='Withdraw money from an account'
           >
             Withdraw
-          </NavLink>
-          <NavLink
-            to='/all-data'
-            className='nav-link'
-            title='See data for all user accounts'
-          >
-            All Data
           </NavLink>
         </Nav>
       </Container>

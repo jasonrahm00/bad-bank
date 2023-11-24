@@ -30,7 +30,7 @@ export const EmailField = {
   ],
 }
 
-export const PasswordField = {
+export const SignupPasswordField = {
   type: 'text',
   name: 'password',
   placeholder: 'Enter your password',
@@ -43,6 +43,13 @@ export const PasswordField = {
       errorMessage: 'Password must be at least 8 characters long',
     },
   ],
+}
+
+export const LoginPasswordField = {
+  type: 'text',
+  name: 'password',
+  placeholder: 'Enter your password',
+  label: 'Password',
 }
 
 export const AmountField = {

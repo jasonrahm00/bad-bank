@@ -2,26 +2,26 @@ import React from 'react'
 import CardComponent from '../base/CardComponent'
 import FormComponent from '../base/FormComponent'
 import {
-  SignupPasswordField,
+  LoginPasswordField,
   NameField,
   EmailField,
 } from '../../config/FormFields'
 import { accountFormDefault } from '../../config/Defaults'
 
-function CreateAccount() {
+function Login() {
   return (
     <CardComponent
-      header='Create Account'
+      header='Login'
       body={
         <FormComponent
-          fields={[NameField, EmailField, SignupPasswordField]}
+          fields={[NameField, EmailField, LoginPasswordField]}
           onSubmit={() => console.log('need to fix')}
           defaultFormState={accountFormDefault}
-          ctaText='Create Account'
+          ctaText='Login'
         />
       }
     />
   )
 }
 
-export default CreateAccount
+export default Login
