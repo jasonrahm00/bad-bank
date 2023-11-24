@@ -52,34 +52,35 @@ app.post('/api/login', jsonParser, async (req, res) => {
 })
 
 // PATCH to withdraw from account
-app.patch('/api/withdraw', (req, res) => {
-  return
-})
+app.patch('/api/updateBalance', jsonParser, async (req, res) => {
+  const { email, amount, action } = req.body
 
-// PATCH to deposit into account
-app.patch('/api/deposit', (req, res) => {
-  return
-})
+  try {
+    let amountAsNum = Number(amount)
 
-/****
- * Starter Endpoints
- * To be replaced with body requests
- */
+    if (isNaN(amountAsNum)) {
+      let error = new Error()
+      error.message = 'Please enter a number'
+      error.success = false
+      throw error
+    }
 
-// deposit
-app.get('/account/deposit/:email/:amount', function (req, res) {
-  res.send({
-    email: req.params.email,
-    amount: req.params.amount,
-  })
-})
+    if (amountAsNum < 0) {
+      let error = new Error()
+      error.message = 'Please enter a positve number'
+      error.success = false
+      throw error
+    }
 
-// withdraw
-app.get('/account/withdraw/:email/:amount', function (req, res) {
-  res.send({
-    email: req.params.email,
-    amount: req.params.amount,
-  })
+    if (action === 'withdraw') {
+      amountAsNum = -amountAsNum
+    }
+
+    const response = await dal.updateBalance(email, amountAsNum, action)
+    res.send(response)
+  } catch (error) {
+    res.status(400).send(error)
+  }
 })
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`))

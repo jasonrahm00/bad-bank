@@ -17,6 +17,14 @@ async function _findExistingUser(email) {
   return existingUser
 }
 
+// reusable error generator
+function createError(message) {
+  let error = new Error()
+  error.success = false
+  error.message = message
+  return error
+}
+
 // create test user
 function createTestUser() {
   return new Promise((resolve, reject) => {
@@ -31,6 +39,7 @@ function createTestUser() {
   })
 }
 
+// get all users
 async function getAllCustomers() {
   try {
     const customers = await db.collection('users').find({}).toArray()
@@ -50,8 +59,7 @@ async function createUser(name, email, password) {
     // check if email is already attached to an account
     const existingUser = await _findExistingUser(email)
     if (existingUser) {
-      let error = new Error()
-      throw (error.message = 'User with that email already exists')
+      throw createError('User with that email already exists')
     }
 
     // If email doesn't exist, proceed with account creation
@@ -72,45 +80,71 @@ async function createUser(name, email, password) {
 
 // login
 async function login(email, password) {
-  const invalidEmailPassword = 'Login credentials are not valid'
+  const invalidCreds = 'Login credentials are not valid'
+
   try {
     const existingUser = await _findExistingUser(email)
-    if (existingUser) {
-      if (existingUser.password === password) {
-        const { email, name, balance } = existingUser
-        return { email, name, balance }
-      } else {
-        let error = new Error()
-        throw (error.message = invalidEmailPassword)
-      }
-    } else {
-      let error = new Error()
-      throw (error.message = invalidEmailPassword)
+
+    // validate account existence
+    if (!existingUser) {
+      throw createError(invalidCreds)
+    }
+
+    // validate password match
+    if (existingUser.password !== password) {
+      throw createError(invalidCreds)
+    }
+
+    return {
+      name: existingUser.name,
+      email: existingUser.email,
+      balance: existingUser.balance,
     }
   } catch (error) {
     throw error
   }
 }
 
-/****
- * Starter Methods
- * To be replaced
- */
+// update balance
+async function updateBalance(email, amount, action) {
+  try {
+    const collection = db.collection('users')
+    const existingUser = await _findExistingUser(email)
 
-// update - deposit/withdraw amount
-function update(email, amount) {
-  return new Promise((resolve, reject) => {
-    const customers = db
-      .collection('users')
-      .findOneAndUpdate(
-        { email: email },
-        { $inc: { balance: amount } },
-        { returnOriginal: false },
-        function (err, documents) {
-          err ? reject(err) : resolve(documents)
-        }
-      )
-  })
+    const verifyFunds = () => {
+      return existingUser.balance + amount > 0
+    }
+
+    // validate account existence
+    if (!existingUser) {
+      throw createError(`User not found with email: ${email}`)
+    }
+
+    // verify available funds
+    if (action === 'withdraw' && !verifyFunds()) {
+      throw createError('Insufficient funds')
+    }
+
+    const result = await collection.findOneAndUpdate(
+      { email },
+      { $inc: { balance: amount } },
+      { returnDocument: 'after' }
+    )
+
+    return {
+      success: true,
+      balance: result.value.balance,
+      message: `Balance updated for ${email}`,
+    }
+  } catch (error) {
+    throw error
+  }
 }
 
-module.exports = { createTestUser, getAllCustomers, createUser, login }
+module.exports = {
+  createTestUser,
+  getAllCustomers,
+  createUser,
+  login,
+  updateBalance,
+}
