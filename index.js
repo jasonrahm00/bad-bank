@@ -59,17 +59,11 @@ app.patch('/api/updateBalance', jsonParser, async (req, res) => {
     let amountAsNum = Number(amount)
 
     if (isNaN(amountAsNum)) {
-      let error = new Error()
-      error.message = 'Please enter a number'
-      error.success = false
-      throw error
+      throw dal.createError('Please enter a number')
     }
 
     if (amountAsNum < 0) {
-      let error = new Error()
-      error.message = 'Please enter a positve number'
-      error.success = false
-      throw error
+      throw dal.createError('Please enter a positive number')
     }
 
     if (action === 'withdraw') {
