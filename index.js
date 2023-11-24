@@ -3,6 +3,7 @@ const app = express()
 const cors = require('cors')
 const dal = require('./dal.js')
 const bodyParser = require('body-parser')
+const utils = require('./utils.js')
 
 app.use(express.static('./frontend/build'))
 app.use(cors())
@@ -51,11 +52,11 @@ app.patch('/api/updateBalance', jsonParser, async (req, res) => {
     let amountAsNum = Number(amount)
 
     if (isNaN(amountAsNum)) {
-      throw dal.createError('Please enter a number')
+      throw utils.createError('Please enter a number')
     }
 
     if (amountAsNum < 0) {
-      throw dal.createError('Please enter a positive number')
+      throw utils.createError('Please enter a positive number')
     }
 
     if (action === 'withdraw') {

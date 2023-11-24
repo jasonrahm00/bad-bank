@@ -1,32 +1,27 @@
 import React from 'react'
 import CardComponent from '../base/CardComponent'
 import bank from '../../assets/bank.png'
+import axios from 'axios'
 
 function Home() {
-  function createAccount() {
-    fetch('/api', {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+  function getAllCustomers() {
+    axios.get('/api/customers').then((response) => {
+      console.log(response.data)
     })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
   }
 
   return (
     <CardComponent
-      header='Welcome to The Bad Bank'
+      header='Welcome to The Okay Bank'
       text='Your money is safe with us*'
       colClasses='col-6'
       body={
         <div className='w-75 mx-auto'>
           <img src={bank} className='img-fluid' alt='' />
-          <button onClick={createAccount}>Create Test Account</button>
+          <button onClick={getAllCustomers}>Get All Customers</button>
         </div>
       }
-      footerText="*Your money isn't actually safe with us"
+      footerText="*We're getting better. Your money is a little safer."
     />
   )
 }

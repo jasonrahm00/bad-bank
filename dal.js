@@ -1,6 +1,7 @@
 const { MongoClient } = require('mongodb')
 require('dotenv').config()
 const url = process.env.DATABASE_URI
+const utils = require('./utils.js')
 let db = null
 
 // connect to mongo
@@ -15,14 +16,6 @@ async function _findExistingCustomer(email) {
   const collection = db.collection('customers')
   const existingCustomer = await collection.findOne({ email })
   return existingCustomer
-}
-
-// reusable error generator
-function createError(message) {
-  let error = new Error()
-  error.success = false
-  error.message = message
-  return error
 }
 
 // get all customers
@@ -73,12 +66,12 @@ async function login(email, password) {
 
     // validate customer existence
     if (!existingCustomer) {
-      throw createError(invalidCreds)
+      throw utils.createError(invalidCreds)
     }
 
     // validate password match
     if (existingCustomer.password !== password) {
-      throw createError(invalidCreds)
+      throw utils.createError(invalidCreds)
     }
 
     return {
@@ -103,12 +96,12 @@ async function updateBalance(email, amount, action) {
 
     // validate account existence
     if (!existingCustomer) {
-      throw createError(`Account not found with email: ${email}`)
+      throw utils.createError(`Account not found with email: ${email}`)
     }
 
     // verify available funds
     if (action === 'withdraw' && !verifyFunds()) {
-      throw createError('Insufficient funds')
+      throw utils.createError('Insufficient funds')
     }
 
     const result = await collection.findOneAndUpdate(
@@ -132,5 +125,4 @@ module.exports = {
   createCustomer,
   login,
   updateBalance,
-  createError,
 }
