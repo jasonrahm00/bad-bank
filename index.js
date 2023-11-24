@@ -29,11 +29,6 @@ app.get('/api/customers', async (req, res) => {
   }
 })
 
-// GET customer by email or id?
-app.get('/api/customer', (req, res) => {
-  return
-})
-
 // POST create customer
 app.post('/api/customers', jsonParser, async (req, res) => {
   const { name, email, password } = req.body
@@ -46,8 +41,14 @@ app.post('/api/customers', jsonParser, async (req, res) => {
 })
 
 // POST login
-app.post('/api/login', (req, res) => {
-  return
+app.post('/api/login', jsonParser, async (req, res) => {
+  const { email, password } = req.body
+  try {
+    const response = await dal.login(email, password)
+    res.send(response)
+  } catch (error) {
+    res.status(403).send(error)
+  }
 })
 
 // PATCH to withdraw from account
@@ -65,31 +66,6 @@ app.patch('/api/deposit', (req, res) => {
  * To be replaced with body requests
  */
 
-// create account
-app.get('/account/create/:name/:email/:password', function (req, res) {
-  const { name, email, password } = req.params
-  dal.create(name, email, password).then((user) => {
-    console.log(user)
-    res.send(user)
-  })
-})
-
-// all accounts
-app.get('/account/all', function (req, res) {
-  dal.all().then((docs) => {
-    console.log(docs)
-    res.send(docs)
-  })
-})
-
-// login
-app.get('/account/login/:email/:password', function (req, res) {
-  res.send({
-    email: req.params.email,
-    password: req.params.password,
-  })
-})
-
 // deposit
 app.get('/account/deposit/:email/:amount', function (req, res) {
   res.send({
@@ -103,14 +79,6 @@ app.get('/account/withdraw/:email/:amount', function (req, res) {
   res.send({
     email: req.params.email,
     amount: req.params.amount,
-  })
-})
-
-// balance
-app.get('/account/balance/:email', function (req, res) {
-  res.send({
-    email: req.params.email,
-    balance: 'beats me',
   })
 })
 

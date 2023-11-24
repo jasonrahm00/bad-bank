@@ -10,6 +10,13 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
   db = client.db('customers')
 })
 
+// reusable function to find existing user by email
+async function _findExistingUser(email) {
+  const collection = db.collection('users')
+  const existingUser = await collection.findOne({ email })
+  return existingUser
+}
+
 // create test user
 function createTestUser() {
   return new Promise((resolve, reject) => {
@@ -41,14 +48,19 @@ async function createUser(name, email, password) {
     const collection = db.collection('users')
 
     // check if email is already attached to an account
-    const existingUser = await collection.findOne({ email })
+    const existingUser = await _findExistingUser(email)
     if (existingUser) {
       let error = new Error()
       throw (error.message = 'User with that email already exists')
     }
 
     // If email doesn't exist, proceed with account creation
-    const doc = { name, email, password, balance: 0 }
+    const doc = {
+      name,
+      email,
+      password,
+      balance: 0,
+    }
     const newDoc = await collection.insertOne(doc)
 
     console.log(newDoc.ops[0])
@@ -58,33 +70,32 @@ async function createUser(name, email, password) {
   }
 }
 
+// login
+async function login(email, password) {
+  const invalidEmailPassword = 'Login credentials are not valid'
+  try {
+    const existingUser = await _findExistingUser(email)
+    if (existingUser) {
+      if (existingUser.password === password) {
+        const { email, name, balance } = existingUser
+        return { email, name, balance }
+      } else {
+        let error = new Error()
+        throw (error.message = invalidEmailPassword)
+      }
+    } else {
+      let error = new Error()
+      throw (error.message = invalidEmailPassword)
+    }
+  } catch (error) {
+    throw error
+  }
+}
+
 /****
  * Starter Methods
  * To be replaced
  */
-
-// find user account
-function find(email) {
-  return new Promise((resolve, reject) => {
-    const customers = db
-      .collection('users')
-      .find({ email: email })
-      .toArray(function (err, docs) {
-        err ? reject(err) : resolve(docs)
-      })
-  })
-}
-
-// find user account
-function findOne(email) {
-  return new Promise((resolve, reject) => {
-    const customers = db
-      .collection('users')
-      .findOne({ email: email })
-      .then((doc) => resolve(doc))
-      .catch((err) => reject(err))
-  })
-}
 
 // update - deposit/withdraw amount
 function update(email, amount) {
@@ -102,4 +113,4 @@ function update(email, amount) {
   })
 }
 
-module.exports = { createTestUser, getAllCustomers, createUser }
+module.exports = { createTestUser, getAllCustomers, createUser, login }
