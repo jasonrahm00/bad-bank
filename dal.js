@@ -10,17 +10,6 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
   db = client.db('customers')
 })
 
-async function getAllCustomers() {
-  return new Promise((resolve, reject) => {
-    const customers = db
-      .collection('users')
-      .find({})
-      .toArray((err, docs) => {
-        err ? reject(err) : resolve(docs)
-      })
-  })
-}
-
 // create test user
 function createTestUser() {
   return new Promise((resolve, reject) => {
@@ -35,32 +24,44 @@ function createTestUser() {
   })
 }
 
+async function getAllCustomers() {
+  try {
+    const customers = await db.collection('users').find({}).toArray()
+    console.log(customers)
+    return customers
+  } catch (err) {
+    console.error(err)
+    throw err
+  }
+}
+
 // create user account
-function createUser(name, email, password) {
-  return new Promise((resolve, reject) => {
+async function createUser(name, email, password) {
+  try {
     const collection = db.collection('users')
+
+    // check if email is already attached to an account
+    const existingUser = await collection.findOne({ email })
+    if (existingUser) {
+      let error = new Error()
+      throw (error.message = 'User with that email already exists')
+    }
+
+    // If email doesn't exist, proceed with account creation
     const doc = { name, email, password, balance: 0 }
-    collection.insertOne(doc, { w: 1 }, function (err, result) {
-      err ? reject(err) : resolve(doc)
-    })
-  })
+    const newDoc = await collection.insertOne(doc)
+
+    console.log(newDoc.ops[0])
+    return newDoc.ops[0]
+  } catch (err) {
+    throw err
+  }
 }
 
 /****
  * Starter Methods
  * To be replaced
  */
-// all users
-function all() {
-  return new Promise((resolve, reject) => {
-    const customers = db
-      .collection('users')
-      .find({})
-      .toArray((err, docs) => {
-        err ? reject(err) : resolve(docs)
-      })
-  })
-}
 
 // find user account
 function find(email) {

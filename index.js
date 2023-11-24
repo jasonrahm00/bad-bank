@@ -14,16 +14,19 @@ const jsonParser = bodyParser.json()
 app.post('/api', (req, res) => {
   dal.createTestUser().then((user) => {
     console.log('test user created')
-    console.log(user)
     res.send(user)
   })
 })
 
 // GET all customers
 app.get('/api/customers', async (req, res) => {
-  const allUsers = await dal.getAllCustomers()
-  console.log(allUsers)
-  res.send(allUsers)
+  try {
+    const response = await dal.getAllCustomers()
+    res.send(response)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Internal server error')
+  }
 })
 
 // GET customer by email or id?
@@ -32,17 +35,14 @@ app.get('/api/customer', (req, res) => {
 })
 
 // POST create customer
-app.post('/api/customers', jsonParser, (req, res) => {
+app.post('/api/customers', jsonParser, async (req, res) => {
   const { name, email, password } = req.body
-  dal
-    .createUser(name, email, password)
-    .then((result) => {
-      console.log(result)
-      res.send(result)
-    })
-    .catch((error) => {
-      console.error('Error:', error.message)
-    })
+  try {
+    const response = await dal.createUser(name, email, password)
+    res.send(response)
+  } catch (error) {
+    res.status(500).send(error)
+  }
 })
 
 // POST login
