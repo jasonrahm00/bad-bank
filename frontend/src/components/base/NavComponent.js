@@ -2,9 +2,17 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import NavItem from 'react-bootstrap/esm/NavItem'
 import { NavLink } from 'react-router-dom'
+import { useAppContext } from './AppContext'
 
 function NavComponent() {
+  const { user, setUser } = useAppContext()
+
+  function handleLogout() {
+    console.log('user logged out')
+  }
+
   return (
     <Navbar expand='lg' variant='dark' bg='dark'>
       <Container>
@@ -17,6 +25,15 @@ function NavComponent() {
           <NavLink to='/login' className='nav-link' title='Log In'>
             Login
           </NavLink>
+          {user ? (
+            <NavItem>
+              <button className='nav-link' onClick={handleLogout}>
+                Logout
+              </button>
+            </NavItem>
+          ) : (
+            ''
+          )}
           <NavLink
             to='/create-account'
             className='nav-link'
