@@ -10,14 +10,6 @@ app.use(cors())
 const PORT = process.env.PORT || 3000
 const jsonParser = bodyParser.json()
 
-// POST to create test account
-app.post('/api', (req, res) => {
-  dal.createTestUser().then((user) => {
-    console.log('test user created')
-    res.send(user)
-  })
-})
-
 // GET all customers
 app.get('/api/customers', async (req, res) => {
   try {
@@ -33,7 +25,7 @@ app.get('/api/customers', async (req, res) => {
 app.post('/api/customers', jsonParser, async (req, res) => {
   const { name, email, password } = req.body
   try {
-    const response = await dal.createUser(name, email, password)
+    const response = await dal.createCustomer(name, email, password)
     res.send(response)
   } catch (error) {
     res.status(500).send(error)
@@ -51,7 +43,7 @@ app.post('/api/login', jsonParser, async (req, res) => {
   }
 })
 
-// PATCH to withdraw from account
+// PATCH to update balance
 app.patch('/api/updateBalance', jsonParser, async (req, res) => {
   const { email, amount, action } = req.body
 

@@ -6,15 +6,15 @@ let db = null
 // connect to mongo
 MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
   console.log('Successfully connected to db server')
-  // connect to customers database
-  db = client.db('customers')
+  // connect to database
+  db = client.db('bad_bank')
 })
 
-// reusable function to find existing user by email
-async function _findExistingUser(email) {
-  const collection = db.collection('users')
-  const existingUser = await collection.findOne({ email })
-  return existingUser
+// reusable function to find existing customer by email
+async function _findExistingCustomer(email) {
+  const collection = db.collection('customers')
+  const existingCustomer = await collection.findOne({ email })
+  return existingCustomer
 }
 
 // reusable error generator
@@ -25,24 +25,10 @@ function createError(message) {
   return error
 }
 
-// create test user
-function createTestUser() {
-  return new Promise((resolve, reject) => {
-    const name = 'user' + Math.floor(Math.random() * 10000)
-    const email = name + '@mit.edu'
-    const collection = db.collection('users')
-    const doc = { name, email }
-
-    collection.insertOne(doc, { w: 1 }, function (err, result) {
-      err ? reject(err) : resolve(doc)
-    })
-  })
-}
-
-// get all users
+// get all customers
 async function getAllCustomers() {
   try {
-    const customers = await db.collection('users').find({}).toArray()
+    const customers = await db.collection('customers').find({}).toArray()
     console.log(customers)
     return customers
   } catch (err) {
@@ -51,18 +37,18 @@ async function getAllCustomers() {
   }
 }
 
-// create user account
-async function createUser(name, email, password) {
+// create customer
+async function createCustomer(name, email, password) {
   try {
-    const collection = db.collection('users')
+    const collection = db.collection('customers')
 
-    // check if email is already attached to an account
-    const existingUser = await _findExistingUser(email)
-    if (existingUser) {
-      throw createError('User with that email already exists')
+    // check if email is already attached to a customer
+    const existingCustomer = await _findExistingCustomer(email)
+    if (existingCustomer) {
+      throw createError('Account with that email already exists')
     }
 
-    // If email doesn't exist, proceed with account creation
+    // If email doesn't exist, proceed with customer creation
     const doc = {
       name,
       email,
@@ -83,22 +69,22 @@ async function login(email, password) {
   const invalidCreds = 'Login credentials are not valid'
 
   try {
-    const existingUser = await _findExistingUser(email)
+    const existingCustomer = await _findExistingCustomer(email)
 
-    // validate account existence
-    if (!existingUser) {
+    // validate customer existence
+    if (!existingCustomer) {
       throw createError(invalidCreds)
     }
 
     // validate password match
-    if (existingUser.password !== password) {
+    if (existingCustomer.password !== password) {
       throw createError(invalidCreds)
     }
 
     return {
-      name: existingUser.name,
-      email: existingUser.email,
-      balance: existingUser.balance,
+      name: existingCustomer.name,
+      email: existingCustomer.email,
+      balance: existingCustomer.balance,
     }
   } catch (error) {
     throw error
@@ -108,16 +94,16 @@ async function login(email, password) {
 // update balance
 async function updateBalance(email, amount, action) {
   try {
-    const collection = db.collection('users')
-    const existingUser = await _findExistingUser(email)
+    const collection = db.collection('customers')
+    const existingCustomer = await _findExistingCustomer(email)
 
     const verifyFunds = () => {
-      return existingUser.balance + amount > 0
+      return existingCustomer.balance + amount > 0
     }
 
     // validate account existence
-    if (!existingUser) {
-      throw createError(`User not found with email: ${email}`)
+    if (!existingCustomer) {
+      throw createError(`Account not found with email: ${email}`)
     }
 
     // verify available funds
@@ -142,9 +128,8 @@ async function updateBalance(email, amount, action) {
 }
 
 module.exports = {
-  createTestUser,
   getAllCustomers,
-  createUser,
+  createCustomer,
   login,
   updateBalance,
   createError,
