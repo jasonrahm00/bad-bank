@@ -7,11 +7,13 @@ import firebase from '../../config/Firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useAppContext } from '../base/AppContext'
 import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
 
 const auth = getAuth(firebase)
 
 function Login(data) {
   const { setUser } = useAppContext()
+  const navigate = useNavigate()
 
   const useLoginForm = async (data) => {
     try {
@@ -20,8 +22,13 @@ function Login(data) {
         data.email,
         data.password
       )
+      console.log({
+        email: token.user.email,
+        accessToken: token.user.accessToken,
+      })
       Cookies.set('token', token.user.accessToken)
       setUser(token.user.email)
+      navigate('/account')
     } catch (error) {
       console.error('Error signing in:', error)
     }

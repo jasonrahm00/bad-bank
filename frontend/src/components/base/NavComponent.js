@@ -3,14 +3,18 @@ import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavItem from 'react-bootstrap/esm/NavItem'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useAppContext } from './AppContext'
+import Cookies from 'js-cookie'
 
 function NavComponent() {
   const { user, setUser } = useAppContext()
+  const navigate = useNavigate()
 
   function handleLogout() {
-    console.log('user logged out')
+    setUser(null)
+    Cookies.remove('token')
+    navigate('/')
   }
 
   return (
@@ -22,39 +26,45 @@ function NavComponent() {
           </NavLink>
         </Nav>
         <Nav>
-          <NavLink to='/login' className='nav-link' title='Log In'>
-            Login
-          </NavLink>
           {user ? (
-            <NavItem>
-              <button className='nav-link' onClick={handleLogout}>
-                Logout
-              </button>
-            </NavItem>
+            <>
+              <NavLink to='/account' className='nav-link' title='Account Page'>
+                {user}
+              </NavLink>
+              <NavLink
+                to='/deposit'
+                className='nav-link'
+                title='Deposit money into an account'
+              >
+                Deposit
+              </NavLink>
+              <NavLink
+                to='/withdraw'
+                className='nav-link'
+                title='Withdraw money from an account'
+              >
+                Withdraw
+              </NavLink>
+              <NavItem>
+                <button className='nav-link' onClick={handleLogout}>
+                  Logout
+                </button>
+              </NavItem>
+            </>
           ) : (
-            ''
+            <>
+              <NavLink to='/login' className='nav-link' title='Log In'>
+                Login
+              </NavLink>
+              <NavLink
+                to='/create-account'
+                className='nav-link'
+                title='Create new accounts'
+              >
+                Create Account
+              </NavLink>
+            </>
           )}
-          <NavLink
-            to='/create-account'
-            className='nav-link'
-            title='Create new accounts'
-          >
-            Create Account
-          </NavLink>
-          <NavLink
-            to='/deposit'
-            className='nav-link'
-            title='Deposit money into an account'
-          >
-            Deposit
-          </NavLink>
-          <NavLink
-            to='/withdraw'
-            className='nav-link'
-            title='Withdraw money from an account'
-          >
-            Withdraw
-          </NavLink>
         </Nav>
       </Container>
     </Navbar>

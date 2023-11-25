@@ -8,6 +8,7 @@ import Login from './components/pages/Login'
 import NavComponent from './components/base/NavComponent'
 import Container from 'react-bootstrap/Container'
 import { AppProvider } from './components/base/AppContext'
+import Account from './components/pages/Account'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path='/deposit' element={<Deposit />} />
               <Route path='/withdraw' element={<Withdraw />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/account' element={<Account />} />
             </Routes>
           </Container>
         </Router>
