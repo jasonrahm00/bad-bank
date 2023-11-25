@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CardComponent from '../base/CardComponent'
 import FormComponent from '../base/FormComponent'
 import {
@@ -18,8 +18,12 @@ const auth = getAuth(firebase)
 const apiUrl = process.env.REACT_APP_API_ENDPOINT
 
 function CreateAccount() {
-  const { setUser } = useAppContext()
+  const { user, setUser } = useAppContext()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (user) navigate('/account')
+  }, [user, navigate])
 
   async function handleSubmit(data) {
     try {
