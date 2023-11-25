@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 
 const auth = getAuth(firebase)
 
-function Login(data) {
+function Login() {
   const { setUser } = useAppContext()
   const navigate = useNavigate()
 
