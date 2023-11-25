@@ -38,7 +38,7 @@ async function createCustomer(name, email, password) {
     // check if email is already attached to a customer
     const existingCustomer = await _findExistingCustomer(email)
     if (existingCustomer) {
-      throw createError('Account with that email already exists')
+      throw utils.createError('Account with that email already exists')
     }
 
     // If email doesn't exist, proceed with customer creation

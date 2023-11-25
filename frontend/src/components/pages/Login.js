@@ -15,7 +15,7 @@ function Login() {
   const { setUser } = useAppContext()
   const navigate = useNavigate()
 
-  const useLoginForm = async (data) => {
+  async function handleSubmit(data) {
     try {
       const token = await signInWithEmailAndPassword(
         auth,
@@ -41,7 +41,7 @@ function Login() {
         <>
           <FormComponent
             fields={[EmailField, LoginPasswordField]}
-            onSubmit={useLoginForm}
+            onSubmit={handleSubmit}
             defaultFormState={loginFormDefaults}
             ctaText='Login'
           />

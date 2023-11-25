@@ -8,7 +8,6 @@ export const accountFormDefault = {
   name: '',
   email: '',
   password: '',
-  accountNumber: '',
 }
 
 export const loginFormDefaults = {
