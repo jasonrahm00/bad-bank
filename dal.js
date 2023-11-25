@@ -30,6 +30,19 @@ async function getAllCustomers() {
   }
 }
 
+// get one customer
+async function getOneCustomer(email) {
+  try {
+    const customer = await _findExistingCustomer(email)
+    if (!customer) {
+      throw utils.createError('Unable to locate account')
+    }
+    return customer
+  } catch (err) {
+    throw err
+  }
+}
+
 // create customer
 async function createCustomer(name, email) {
   try {
@@ -45,6 +58,7 @@ async function createCustomer(name, email) {
     const doc = {
       name,
       email,
+      balance: 0,
     }
     const newDoc = await collection.insertOne(doc)
 
@@ -123,4 +137,5 @@ module.exports = {
   createCustomer,
   login,
   updateBalance,
+  getOneCustomer,
 }

@@ -29,7 +29,7 @@ function NavComponent() {
           {user ? (
             <>
               <NavLink to='/account' className='nav-link' title='Account Page'>
-                {user}
+                {user.email}
               </NavLink>
               <NavLink
                 to='/deposit'

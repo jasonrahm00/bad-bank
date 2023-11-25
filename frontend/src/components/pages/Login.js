@@ -8,26 +8,22 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useAppContext } from '../base/AppContext'
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const auth = getAuth(firebase)
+const apiUrl = process.env.REACT_APP_API_ENDPOINT
 
 function Login() {
   const { setUser } = useAppContext()
   const navigate = useNavigate()
 
   async function handleSubmit(data) {
+    const { email, password } = data
     try {
-      const token = await signInWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      )
-      console.log({
-        email: token.user.email,
-        accessToken: token.user.accessToken,
-      })
+      const token = await signInWithEmailAndPassword(auth, email, password)
+      const customer = await axios.get(`${apiUrl}api/customers/${email}`)
       Cookies.set('token', token.user.accessToken)
-      setUser(token.user.email)
+      setUser(customer.data)
       navigate('/account')
     } catch (error) {
       console.error('Error signing in:', error)

@@ -28,12 +28,12 @@ function CreateAccount() {
         data.email,
         data.password
       )
-      await axios.post(`${apiUrl}api/customers`, {
+      const customer = await axios.post(`${apiUrl}api/customers`, {
         name: data.name,
         email: data.email,
       })
       Cookies.set('token', token.user.accessToken)
-      setUser(token.user.email)
+      setUser(customer.data)
       navigate('/account')
       return { success: true }
     } catch (error) {

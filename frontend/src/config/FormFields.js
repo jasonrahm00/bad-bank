@@ -50,6 +50,7 @@ export const LoginPasswordField = {
   name: 'password',
   placeholder: 'Enter your password',
   label: 'Password',
+  validation: [fieldRequired],
 }
 
 export const AmountField = {

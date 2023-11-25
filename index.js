@@ -23,6 +23,18 @@ app.get('/api/customers', async (req, res) => {
   }
 })
 
+// GET one customer
+app.get('/api/customers/:email', async (req, res) => {
+  try {
+    const { email } = req.params
+    const response = await dal.getOneCustomer(email)
+    res.send(response)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Internal server error')
+  }
+})
+
 // POST create customer
 app.post('/api/customers', jsonParser, async (req, res) => {
   const { name, email, password } = req.body
