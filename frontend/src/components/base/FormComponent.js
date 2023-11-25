@@ -28,6 +28,13 @@ function FormComponent({ fields, onSubmit, defaultFormState, ctaText }) {
           setFormData(defaultFormState)
           setFormFilled(false)
           setFormErrors({})
+          if (result.message) {
+            setToast({
+              message: result.message,
+              showToast: true,
+              variant: 'success',
+            })
+          }
         } else {
           throw result.message
         }
