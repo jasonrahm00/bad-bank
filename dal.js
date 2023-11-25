@@ -31,7 +31,7 @@ async function getAllCustomers() {
 }
 
 // create customer
-async function createCustomer(name, email, password) {
+async function createCustomer(name, email) {
   try {
     const collection = db.collection('customers')
 
@@ -45,8 +45,6 @@ async function createCustomer(name, email, password) {
     const doc = {
       name,
       email,
-      password,
-      balance: 0,
     }
     const newDoc = await collection.insertOne(doc)
 

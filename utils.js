@@ -11,10 +11,12 @@ function createError(message) {
   return error
 }
 
+// Initialize Firebase Admin
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 })
 
+// Firebase Auth Middleware
 function authMiddleware(req, res, next) {
   const idToken = req.header('Authorization')
   if (!idToken) {
@@ -23,8 +25,9 @@ function authMiddleware(req, res, next) {
 
   admin
     .auth()
-    .veriifyIdToken(idToken)
+    .verifyIdToken(idToken)
     .then((decodedToken) => {
+      console.log({ decodedToken })
       req.user = decodedToken
       next()
     })

@@ -12,8 +12,10 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import { useAppContext } from '../base/AppContext'
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const auth = getAuth(firebase)
+const apiUrl = process.env.REACT_APP_API_ENDPOINT
 
 function CreateAccount() {
   const { setUser } = useAppContext()
@@ -26,13 +28,20 @@ function CreateAccount() {
         data.email,
         data.password
       )
+      await axios.post(`${apiUrl}api/customers`, {
+        name: data.name,
+        email: data.email,
+      })
       Cookies.set('token', token.user.accessToken)
       setUser(token.user.email)
       navigate('/account')
       return { success: true }
     } catch (error) {
       console.log(error)
-      throw { success: false, message: 'Unable to create account' }
+      let err = new Error()
+      err.success = false
+      err.message = 'Unable to create account'
+      throw err
     }
   }
 
