@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const auth = getAuth(firebase)
-const apiUrl = process.env.REACT_APP_API_ENDPOINT
+const apiUrl = process.env.REACT_APP_API_ENDPOINT || '/'
 
 function Login() {
   const { user, setUser } = useAppContext()

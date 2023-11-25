@@ -10,6 +10,7 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     Cookies.set('user', JSON.stringify(user))
+    console.log(Cookies.get('user'))
   }, [user])
 
   return (

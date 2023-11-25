@@ -8,7 +8,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import AuthRedirect from '../base/AuthRedirect'
 
-const apiUrl = process.env.REACT_APP_API_ENDPOINT
+const apiUrl = process.env.REACT_APP_API_ENDPOINT || '/'
 
 function Withdraw() {
   const { user, setUser } = useAppContext()
