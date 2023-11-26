@@ -28,7 +28,7 @@ app.get('/api/customers', async (req, res) => {
 app.get('/api/login/:email', async (req, res) => {
   try {
     const { email } = req.params
-    const response = await dal.getOneCustomer(email)
+    const response = await dal.login(email)
     res.send(response)
   } catch (error) {
     console.error(error)
@@ -69,7 +69,7 @@ app.patch('/api/updateBalance', jsonParser, async (req, res) => {
     const response = await dal.updateBalance(email, amountAsNum, action)
     res.send(response)
   } catch (error) {
-    res.status(400).send(error)
+    res.status(500).send(error)
   }
 })
 

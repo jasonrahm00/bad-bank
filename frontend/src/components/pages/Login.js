@@ -36,6 +36,8 @@ function Login() {
     navigate('/account')
   }
 
+  function processError(error) {}
+
   async function submitEmailPassword(data) {
     const { email, password } = data
     try {
@@ -43,7 +45,12 @@ function Login() {
       const customer = await axios.get(`${apiUrl}api/login/${email}`)
       processSuccess(token.user.accessToken, customer.data)
     } catch (error) {
-      console.error(error)
+      let response = JSON.parse(JSON.stringify(error))
+      let message = 'unable to login'
+      if (response.name === 'FirebaseError') message = response.code
+      if (error.name === 'AxiosError') message = error.response.data.message
+      console.log(error)
+      throw { message }
     }
   }
 

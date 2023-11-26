@@ -30,8 +30,8 @@ async function getAllCustomers() {
   }
 }
 
-// get one customer
-async function getOneCustomer(email) {
+// login
+async function login(email) {
   try {
     const customer = await _findExistingCustomer(email)
     if (!customer) {
@@ -69,33 +69,6 @@ async function createCustomer(name, email) {
   }
 }
 
-// login
-async function login(email, password) {
-  const invalidCreds = 'Login credentials are not valid'
-
-  try {
-    const existingCustomer = await _findExistingCustomer(email)
-
-    // validate customer existence
-    if (!existingCustomer) {
-      throw utils.createError(invalidCreds)
-    }
-
-    // validate password match
-    if (existingCustomer.password !== password) {
-      throw utils.createError(invalidCreds)
-    }
-
-    return {
-      name: existingCustomer.name,
-      email: existingCustomer.email,
-      balance: existingCustomer.balance,
-    }
-  } catch (error) {
-    throw error
-  }
-}
-
 // update balance
 async function updateBalance(email, amount, action) {
   try {
@@ -103,7 +76,7 @@ async function updateBalance(email, amount, action) {
     const existingCustomer = await _findExistingCustomer(email)
 
     const verifyFunds = () => {
-      return existingCustomer.balance + amount > 0
+      return existingCustomer.balance + amount >= 0
     }
 
     // validate account existence
@@ -136,5 +109,5 @@ module.exports = {
   getAllCustomers,
   createCustomer,
   updateBalance,
-  getOneCustomer,
+  login,
 }

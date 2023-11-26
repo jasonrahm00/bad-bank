@@ -33,7 +33,9 @@ function Withdraw() {
         message: `$${data.amount} subtracted from your account`,
       }
     } catch (error) {
-      console.log(error)
+      let data = error.response.data
+      console.log(data)
+      throw { message: data.message }
     }
   }
 
