@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import CardComponent from '../base/CardComponent'
 import FormComponent from '../base/FormComponent'
 import { LoginPasswordField, EmailField } from '../../config/FormFields'
@@ -14,6 +14,8 @@ import { useAppContext } from '../base/AppContext'
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import ToastComponent from '../base/ToastComponent'
+import { toastDefault } from '../../config/Defaults'
 
 const auth = getAuth(firebase)
 const apiUrl = process.env.REACT_APP_API_ENDPOINT || '/'
@@ -22,6 +24,7 @@ function Login() {
   const { user, setUser } = useAppContext()
   const navigate = useNavigate()
   const provider = new GoogleAuthProvider()
+  const [toast, setToast] = useState(toastDefault)
 
   useEffect(() => {
     if (user) navigate('/account')
@@ -53,7 +56,13 @@ function Login() {
       )
       processSuccess(credential.accessToken, customer.data)
     } catch (error) {
-      console.error({ message: error.response.data.message })
+      const message = error.response.data.message
+      console.error(message)
+      setToast({
+        message,
+        showToast: true,
+        variant: 'danger',
+      })
     }
   }
 
@@ -81,9 +90,17 @@ function Login() {
           mainHeaderLevel='h2'
           cardClasses='p-0'
           body={
-            <button className='btn btn-primary' onClick={googleSignin}>
-              Login with Google
-            </button>
+            <>
+              <ToastComponent
+                message={toast.message}
+                show={toast.showToast}
+                variant={toast.variant}
+                onClose={() => setToast(toastDefault)}
+              />
+              <button className='btn btn-primary' onClick={googleSignin}>
+                Login with Google
+              </button>
+            </>
           }
         />
       </div>
