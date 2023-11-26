@@ -13,11 +13,6 @@ app.use(cors())
 const PORT = process.env.PORT || 3000
 const jsonParser = bodyParser.json()
 
-// Catchall route to redirect to the frontend index.html so react router works properly
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'))
-})
-
 // GET all customers
 app.get('/api/customers', async (req, res) => {
   try {
@@ -76,6 +71,11 @@ app.patch('/api/updateBalance', jsonParser, async (req, res) => {
   } catch (error) {
     res.status(400).send(error)
   }
+})
+
+// Catchall route to redirect to the frontend index.html so react router works properly
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'))
 })
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`))
