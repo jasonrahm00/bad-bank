@@ -4,13 +4,19 @@ const cors = require('cors')
 const dal = require('./dal.js')
 const bodyParser = require('body-parser')
 const utils = require('./utils.js')
+const path = require('path')
 require('dotenv').config()
 
-app.use(express.static('./frontend/build'))
+app.use(express.static(path.join(__dirname, 'frontend', 'build')))
 app.use(cors())
 
 const PORT = process.env.PORT || 3000
 const jsonParser = bodyParser.json()
+
+// Catchall route to redirect to the frontend index.html so react router works properly
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'))
+})
 
 // GET all customers
 app.get('/api/customers', async (req, res) => {
