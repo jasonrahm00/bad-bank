@@ -10,15 +10,15 @@ import { accountFormDefault } from '../../config/Defaults'
 import firebase from '../../config/Firebase'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import { useAppContext } from '../base/AppContext'
-import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Button from 'react-bootstrap/Button'
 
 const auth = getAuth(firebase)
 const apiUrl = process.env.REACT_APP_API_ENDPOINT || '/'
 
 function CreateAccount() {
-  const { user, setUser } = useAppContext()
+  const { user, setUser, token, setToken } = useAppContext()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -27,26 +27,20 @@ function CreateAccount() {
 
   async function handleSubmit(data) {
     try {
-      const token = await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      )
+      if (!token)
+        await createUserWithEmailAndPassword(auth, data.email, data.password)
       const customer = await axios.post(`${apiUrl}api/customers`, {
         name: data.name,
         email: data.email,
       })
-      Cookies.set('token', token.user.accessToken)
       setUser(customer.data)
       navigate('/account')
+      setToken(null)
       return { success: true }
     } catch (error) {
       console.log(error)
 
-      let err = new Error()
-      err.success = false
-      err.message = 'Unable to create account'
-      throw err
+      throw { message: `Account for ${data.email} aleady exists` }
     }
   }
 
@@ -54,12 +48,23 @@ function CreateAccount() {
     <CardComponent
       header='Create Account'
       body={
-        <FormComponent
-          fields={[NameField, EmailField, SignupPasswordField]}
-          onSubmit={handleSubmit}
-          defaultFormState={accountFormDefault}
-          ctaText='Create Account'
-        />
+        <>
+          {token ? (
+            <FormComponent
+              fields={[NameField, EmailField]}
+              onSubmit={handleSubmit}
+              defaultFormState={{ name: '', email: token.user.email }}
+              ctaText='Create Account using Gmail'
+            />
+          ) : (
+            <FormComponent
+              fields={[NameField, EmailField, SignupPasswordField]}
+              onSubmit={handleSubmit}
+              defaultFormState={accountFormDefault}
+              ctaText='Create Account'
+            />
+          )}
+        </>
       }
     />
   )

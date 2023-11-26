@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CardComponent from '../base/CardComponent'
 import FormComponent from '../base/FormComponent'
+import Button from 'react-bootstrap/Button'
 import { LoginPasswordField, EmailField } from '../../config/FormFields'
 import { loginFormDefaults } from '../../config/Defaults'
 import firebase from '../../config/Firebase'
@@ -12,7 +13,7 @@ import {
 } from 'firebase/auth'
 import { useAppContext } from '../base/AppContext'
 import Cookies from 'js-cookie'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import ToastComponent from '../base/ToastComponent'
 import { toastDefault } from '../../config/Defaults'
@@ -21,48 +22,46 @@ const auth = getAuth(firebase)
 const apiUrl = process.env.REACT_APP_API_ENDPOINT || '/'
 
 function Login() {
-  const { user, setUser } = useAppContext()
+  const { user, setUser, setToken } = useAppContext()
   const navigate = useNavigate()
   const provider = new GoogleAuthProvider()
   const [toast, setToast] = useState(toastDefault)
+  const [noGoogleAccount, setNoGoogleAccount] = useState(false)
 
   useEffect(() => {
     if (user) navigate('/account')
   }, [user, navigate])
 
-  function processSuccess(token, userData) {
-    Cookies.set('token', token)
+  function processSuccess(userData) {
     setUser(userData)
     navigate('/account')
   }
 
-  function processError(error) {}
-
   async function submitEmailPassword(data) {
     const { email, password } = data
     try {
-      const token = await signInWithEmailAndPassword(auth, email, password)
+      await signInWithEmailAndPassword(auth, email, password)
       const customer = await axios.get(`${apiUrl}api/login/${email}`)
-      processSuccess(token.user.accessToken, customer.data)
+      processSuccess(customer.data)
     } catch (error) {
       let response = JSON.parse(JSON.stringify(error))
       let message = 'unable to login'
       if (response.name === 'FirebaseError') message = response.code
       if (error.name === 'AxiosError') message = error.response.data.message
-      console.log(error)
+      console.log(response)
       throw { message }
     }
   }
 
   async function googleSignin() {
     try {
-      const result = await signInWithPopup(auth, provider)
-      const credential = GoogleAuthProvider.credentialFromResult(result)
-      const customer = await axios.get(
-        `${apiUrl}api/login/${result.user.email}`
-      )
-      processSuccess(credential.accessToken, customer.data)
+      const token = await signInWithPopup(auth, provider)
+      const credential = GoogleAuthProvider.credentialFromResult(token)
+      setToken(token)
+      const customer = await axios.get(`${apiUrl}api/login/${token.user.email}`)
+      processSuccess(customer.data)
     } catch (error) {
+      setNoGoogleAccount(true)
       const message = error.response.data.message
       console.error(message)
       setToast({
@@ -104,9 +103,21 @@ function Login() {
                 variant={toast.variant}
                 onClose={() => setToast(toastDefault)}
               />
-              <button className='btn btn-primary' onClick={googleSignin}>
+              <Button
+                variant='primary'
+                type='submit'
+                disabled={noGoogleAccount}
+                onClick={googleSignin}
+              >
                 Login with Google
-              </button>
+              </Button>
+              {noGoogleAccount && (
+                <p className='mt-3'>
+                  Unable to locate an account with your gmail address. If you
+                  wish to create an account with that email address, please go
+                  to the <Link to='/create-account'>Create Account page</Link>
+                </p>
+              )}
             </>
           }
         />

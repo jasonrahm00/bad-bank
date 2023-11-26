@@ -5,15 +5,14 @@ import Navbar from 'react-bootstrap/Navbar'
 import NavItem from 'react-bootstrap/esm/NavItem'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAppContext } from './AppContext'
-import Cookies from 'js-cookie'
 
 function NavComponent() {
-  const { user, setUser } = useAppContext()
+  const { user, setUser, setToken } = useAppContext()
   const navigate = useNavigate()
 
   function handleLogout() {
     setUser(null)
-    Cookies.remove('token')
+    setToken(null)
     navigate('/')
   }
 
