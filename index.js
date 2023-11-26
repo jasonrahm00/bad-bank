@@ -37,9 +37,9 @@ app.get('/api/login/:email', async (req, res) => {
 
 // POST create customer
 app.post('/api/customers', jsonParser, async (req, res) => {
-  const { name, email, password } = req.body
+  const { name, email } = req.body
   try {
-    const response = await dal.createCustomer(name, email, password)
+    const response = await dal.createCustomer(name, email)
     res.send(response)
   } catch (error) {
     res.status(500).send(error)
