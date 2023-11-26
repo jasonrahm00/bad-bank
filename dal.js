@@ -135,7 +135,6 @@ async function updateBalance(email, amount, action) {
 module.exports = {
   getAllCustomers,
   createCustomer,
-  login,
   updateBalance,
   getOneCustomer,
 }

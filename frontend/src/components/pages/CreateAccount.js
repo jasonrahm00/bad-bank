@@ -42,6 +42,7 @@ function CreateAccount() {
       return { success: true }
     } catch (error) {
       console.log(error)
+
       let err = new Error()
       err.success = false
       err.message = 'Unable to create account'

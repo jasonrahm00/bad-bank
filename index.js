@@ -24,14 +24,14 @@ app.get('/api/customers', async (req, res) => {
 })
 
 // GET one customer
-app.get('/api/customers/:email', async (req, res) => {
+app.get('/api/login/:email', async (req, res) => {
   try {
     const { email } = req.params
     const response = await dal.getOneCustomer(email)
     res.send(response)
   } catch (error) {
     console.error(error)
-    res.status(500).send('Internal server error')
+    res.status(500).send(error)
   }
 })
 
@@ -43,17 +43,6 @@ app.post('/api/customers', jsonParser, async (req, res) => {
     res.send(response)
   } catch (error) {
     res.status(500).send(error)
-  }
-})
-
-// POST login
-app.post('/api/login', jsonParser, async (req, res) => {
-  const { email, password } = req.body
-  try {
-    const response = await dal.login(email, password)
-    res.send(response)
-  } catch (error) {
-    res.status(403).send(error)
   }
 })
 

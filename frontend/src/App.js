@@ -16,7 +16,7 @@ function App() {
       <AppProvider>
         <Router>
           <NavComponent />
-          <Container>
+          <Container as='main'>
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/create-account' element={<CreateAccount />} />
