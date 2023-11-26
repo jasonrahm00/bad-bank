@@ -12,7 +12,6 @@ import {
   signInWithPopup,
 } from 'firebase/auth'
 import { useAppContext } from '../base/AppContext'
-import Cookies from 'js-cookie'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import ToastComponent from '../base/ToastComponent'
@@ -41,25 +40,35 @@ function Login() {
     const { email, password } = data
     try {
       await signInWithEmailAndPassword(auth, email, password)
-      const customer = await axios.get(`${apiUrl}api/login/${email}`)
-      processSuccess(customer.data)
+      const idToken = await auth.currentUser.getIdToken()
+      const response = await axios({
+        method: 'post',
+        url: `${apiUrl}api/login`,
+        headers: {
+          Authorization: idToken,
+        },
+      })
+      processSuccess(response.data)
     } catch (error) {
       let response = JSON.parse(JSON.stringify(error))
       let message = 'unable to login'
       if (response.name === 'FirebaseError') message = response.code
-      if (error.name === 'AxiosError') message = error.response.data.message
-      console.log(response)
       throw { message }
     }
   }
 
   async function googleSignin() {
     try {
-      const token = await signInWithPopup(auth, provider)
-      const credential = GoogleAuthProvider.credentialFromResult(token)
-      setToken(token)
-      const customer = await axios.get(`${apiUrl}api/login/${token.user.email}`)
-      processSuccess(customer.data)
+      await signInWithPopup(auth, provider)
+      const idToken = await auth.currentUser.getIdToken()
+      const response = await axios({
+        method: 'post',
+        url: `${apiUrl}api/login`,
+        headers: {
+          Authorization: idToken,
+        },
+      })
+      processSuccess(response.data)
     } catch (error) {
       setNoGoogleAccount(true)
       const message = error.response.data.message

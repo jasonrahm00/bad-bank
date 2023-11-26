@@ -59,6 +59,7 @@ async function createCustomer(name, email) {
       name,
       email,
       balance: 0,
+      accountNumber: Math.floor(Math.random() * 1000000000),
     }
     const newDoc = await collection.insertOne(doc)
 

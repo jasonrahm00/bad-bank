@@ -2,16 +2,15 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const dal = require('./dal.js')
-const bodyParser = require('body-parser')
 const utils = require('./utils.js')
 const path = require('path')
 require('dotenv').config()
 
 app.use(express.static(path.join(__dirname, 'frontend', 'build')))
 app.use(cors())
+app.use(express.json())
 
 const PORT = process.env.PORT || 3000
-const jsonParser = bodyParser.json()
 
 // GET all customers
 app.get('/api/customers', async (req, res) => {
@@ -24,11 +23,11 @@ app.get('/api/customers', async (req, res) => {
   }
 })
 
-// GET one customer
-app.get('/api/login/:email', async (req, res) => {
+// Login with Google
+app.post('/api/login', utils.verifyToken, async (req, res) => {
+  console.log(req.bodysigninMethod)
   try {
-    const { email } = req.params
-    const response = await dal.login(email)
+    const response = await dal.login(req.user.email)
     res.send(response)
   } catch (error) {
     console.error(error)
@@ -37,7 +36,7 @@ app.get('/api/login/:email', async (req, res) => {
 })
 
 // POST create customer
-app.post('/api/customers', jsonParser, async (req, res) => {
+app.post('/api/customers', async (req, res) => {
   const { name, email } = req.body
   try {
     const response = await dal.createCustomer(name, email)
@@ -48,7 +47,7 @@ app.post('/api/customers', jsonParser, async (req, res) => {
 })
 
 // PATCH to update balance
-app.patch('/api/updateBalance', jsonParser, async (req, res) => {
+app.patch('/api/updateBalance', async (req, res) => {
   const { email, amount, action } = req.body
 
   try {
