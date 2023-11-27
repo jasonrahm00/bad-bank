@@ -27,15 +27,21 @@ function CreateAccount() {
 
   async function handleSubmit(data) {
     try {
-      if (!token)
-        await createUserWithEmailAndPassword(auth, data.email, data.password)
-      const customer = await axios.post(`${apiUrl}api/customers`, {
-        name: data.name,
-        email: data.email,
+      await createUserWithEmailAndPassword(auth, data.email, data.password)
+      const idToken = await auth.currentUser.getIdToken()
+      console.log(idToken)
+      const response = await axios({
+        method: 'post',
+        url: `${apiUrl}api/customers`,
+        headers: {
+          Authorization: idToken,
+        },
+        data: {
+          name: data.name,
+        },
       })
-      setUser(customer.data)
+      setUser(response.data)
       navigate('/account')
-      setToken(null)
       return { success: true }
     } catch (error) {
       console.log(error)

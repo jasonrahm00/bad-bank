@@ -5,14 +5,18 @@ import Navbar from 'react-bootstrap/Navbar'
 import NavItem from 'react-bootstrap/esm/NavItem'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAppContext } from './AppContext'
+import firebase from '../../config/Firebase'
+import { getAuth } from 'firebase/auth'
+
+const auth = getAuth(firebase)
 
 function NavComponent() {
-  const { user, setUser, setToken } = useAppContext()
+  const { user, setUser } = useAppContext()
   const navigate = useNavigate()
 
   function handleLogout() {
     setUser(null)
-    setToken(null)
+    auth.signOut()
     navigate('/')
   }
 

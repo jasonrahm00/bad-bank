@@ -21,7 +21,7 @@ const auth = getAuth(firebase)
 const apiUrl = process.env.REACT_APP_API_ENDPOINT || '/'
 
 function Login() {
-  const { user, setUser, setToken } = useAppContext()
+  const { user, setUser } = useAppContext()
   const navigate = useNavigate()
   const provider = new GoogleAuthProvider()
   const [toast, setToast] = useState(toastDefault)

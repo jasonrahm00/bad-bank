@@ -35,8 +35,9 @@ app.post('/api/login', utils.verifyToken, async (req, res) => {
 })
 
 // POST create customer
-app.post('/api/customers', async (req, res) => {
-  const { name, email } = req.body
+app.post('/api/customers', utils.verifyToken, async (req, res) => {
+  const { name } = req.body
+  const email = req.user.email
   try {
     const response = await dal.createCustomer(name, email)
     res.send(response)

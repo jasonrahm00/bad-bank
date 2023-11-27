@@ -37,6 +37,7 @@ function Account() {
               </div>
             </>
           }
+          footerText={`Account Number: ${user.accountNumber}`}
         />
       ) : (
         <AuthRedirect />
