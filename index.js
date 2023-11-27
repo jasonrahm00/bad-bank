@@ -25,7 +25,6 @@ app.get('/api/customers', async (req, res) => {
 
 // Login with Google
 app.post('/api/login', utils.verifyToken, async (req, res) => {
-  console.log(req.bodysigninMethod)
   try {
     const response = await dal.login(req.user.email)
     res.send(response)
@@ -47,8 +46,9 @@ app.post('/api/customers', async (req, res) => {
 })
 
 // PATCH to update balance
-app.patch('/api/updateBalance', async (req, res) => {
-  const { email, amount, action } = req.body
+app.patch('/api/updateBalance', utils.verifyToken, async (req, res) => {
+  const { amount, action } = req.body
+  const email = req.user.email
 
   try {
     let amountAsNum = Number(amount)

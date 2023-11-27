@@ -7,7 +7,10 @@ import { useAppContext } from '../base/AppContext'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import AuthRedirect from '../base/AuthRedirect'
+import firebase from '../../config/Firebase'
+import { getAuth } from 'firebase/auth'
 
+const auth = getAuth(firebase)
 const apiUrl = process.env.REACT_APP_API_ENDPOINT || '/'
 
 function Deposit() {
@@ -22,10 +25,17 @@ function Deposit() {
 
   async function handleSubmit(data) {
     try {
-      const response = await axios.patch(`${apiUrl}api/updateBalance`, {
-        email: user.email,
-        amount: data.amount,
-        action: 'deposit',
+      const idToken = await auth.currentUser.getIdToken()
+      const response = await axios({
+        method: 'patch',
+        url: `${apiUrl}api/updateBalance`,
+        headers: {
+          Authorization: idToken,
+        },
+        data: {
+          amount: data.amount,
+          action: 'deposit',
+        },
       })
       setUser({ ...user, balance: response.data.balance })
       return { success: true, message: `$${data.amount} added to your account` }
