@@ -11,7 +11,7 @@ export const NameField = {
   type: 'text',
   name: 'name',
   placeholder: 'Enter your name',
-  label: 'Name',
+  label: 'Name*',
   validation: [fieldRequired],
 }
 
@@ -19,7 +19,7 @@ export const EmailField = {
   type: 'text',
   name: 'email',
   placeholder: 'Enter your email',
-  label: 'Email',
+  label: 'Email*',
   validation: [
     fieldRequired,
     {
@@ -34,7 +34,7 @@ export const SignupPasswordField = {
   type: 'text',
   name: 'password',
   placeholder: 'Enter your password',
-  label: 'Password (Minimum of 8 characters)',
+  label: 'Password* (Minimum of 8 characters)',
   validation: [
     fieldRequired,
     {
@@ -49,7 +49,7 @@ export const LoginPasswordField = {
   type: 'text',
   name: 'password',
   placeholder: 'Enter your password',
-  label: 'Password',
+  label: 'Password*',
   validation: [fieldRequired],
 }
 

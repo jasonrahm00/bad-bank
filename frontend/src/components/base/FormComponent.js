@@ -5,7 +5,13 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import ToastComponent from '../base/ToastComponent'
 import { toastDefault } from '../../config/Defaults'
 
-function FormComponent({ fields, onSubmit, defaultFormState, ctaText }) {
+function FormComponent({
+  fields,
+  onSubmit,
+  defaultFormState,
+  ctaText,
+  activateButton,
+}) {
   const [toast, setToast] = useState(toastDefault)
   const [formData, setFormData] = useState(defaultFormState)
   const [formErrors, setFormErrors] = useState({})
@@ -97,9 +103,9 @@ function FormComponent({ fields, onSubmit, defaultFormState, ctaText }) {
           )
         })}
         <Button
-          variant={!formFilled ? 'secondary' : 'primary'}
+          variant={!formFilled && !activateButton ? 'secondary' : 'primary'}
           type='submit'
-          disabled={!formFilled}
+          disabled={!formFilled && !activateButton}
           className='mt-3'
         >
           {ctaText ? ctaText : 'Submit'}
