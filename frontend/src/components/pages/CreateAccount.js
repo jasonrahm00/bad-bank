@@ -38,7 +38,7 @@ function CreateAccount() {
       })
       setGoogleCreate(true)
     }
-  }, [user, navigate, auth, setGoogleCreate, setGoogleFields])
+  }, [user, navigate, setGoogleCreate, setGoogleFields])
 
   async function handleSubmit(data) {
     try {

@@ -28,7 +28,7 @@ function Deposit() {
       const idToken = await auth.currentUser.getIdToken()
       const response = await axios({
         method: 'patch',
-        url: `${apiUrl}api/updateBalance`,
+        url: `${apiUrl}api/update-balance`,
         headers: {
           Authorization: idToken,
         },
@@ -48,7 +48,7 @@ function Deposit() {
       {user ? (
         <CardComponent
           header='Deposit'
-          subheader={`Available Balance: $${user.balance}`}
+          subheader={`Available Balance: $${user.balance.toLocaleString()}`}
           body={
             <FormComponent
               fields={[AmountField]}

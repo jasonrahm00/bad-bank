@@ -12,17 +12,6 @@ app.use(express.json())
 
 const PORT = process.env.PORT || 3000
 
-// GET all customers
-app.get('/api/customers', async (req, res) => {
-  try {
-    const response = await dal.getAllCustomers()
-    res.send(response)
-  } catch (error) {
-    console.error(error)
-    res.status(500).send('Internal server error')
-  }
-})
-
 // Login with Google
 app.post('/api/login', utils.verifyToken, async (req, res) => {
   try {
@@ -47,7 +36,7 @@ app.post('/api/customers', utils.verifyToken, async (req, res) => {
 })
 
 // PATCH to update balance
-app.patch('/api/updateBalance', utils.verifyToken, async (req, res) => {
+app.patch('/api/update-balance', utils.verifyToken, async (req, res) => {
   const { amount, action } = req.body
   const email = req.user.email
 

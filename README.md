@@ -1,63 +1,71 @@
 # Bad Bank
 
-The goal of this project is to create a simulated banking interface using ReactJS and Bootstrap. In the interface, users can create an account, deposit and withdraw money and see a list of existing users. There is no validation or security with this application - hence the name: Bad Bank. The intent is to become familiarized with building React applications. This project was created as an assingment for the MIT Full-Stack MERN Certification. For information on other projects I created for this certficiation, visit my [Github Portfolio Page](https://jasonrahm00.github.io/).
+The goal of this project is to create a full-stack simulated banking interface using ReactJS, Expess and MongoDB. In the interface, users can create an account, deposit and withdraw money. Users can create an accoutn and login using an email and password or with their Google account. The intent is to become familiarized with building a complete applications using the MERN stack. This project was created as an assingment for the MIT Full-Stack MERN Certification. For information on other projects I created for this certficiation, visit my [Github Portfolio Page](https://jasonrahm00.github.io/).
 
 ## Hosted Site
 
-[Bad Bank](http://jason-rahmbankingapplication.s3-website-us-west-2.amazonaws.com/)
+[Bad Bank](https://jr-bad-bank-19556df085a6.herokuapp.com/)
 
 ## Features
 
 ### Original Project Features
 
-The "assignment-starter-files" directory in the repository has mockups and user stories which outline the basic feature requirements. Here is a quick rundown of the assignment requirements
+This project is an enhancement to a previous assignment where we built the frontend of the application using React. To complete this capstone project, a backend and database were cofnigured and integrated with the existing frontend. Here is a quick rundown of the assignment requirements
 
-- Create the following pages (views) inthe application: Homepage, Create Account, Deposit, Withdraw and All Data
-- Use React Context to store data and pass between components
-- Home Page has a card with an image, title and welcome message
-- Create Account has a form that takes name, email and password, validates the fields and creates new user in the context
-- Deposit page has a form that takes a number, validates input type and adds the amount to the user account
-- Withdraw page has a form that takes in a number, validates input type, validates available funds and subtracts from user account
-- All Data page displays a table of all users and their data
-- No login or security. All data is publicly visible and can be manipulated
+- User can create an account with an email address and password
+- User can login to the account with an email address/password or OAuth
+- User can Logout of the account
+- User can deposit/withdraw money and the balance is updated accordingly
+- User account data persists through login sessions (it's stored in a live database)
 
 ### Technology Used
 
 - ReactJS
 - Bootstrap
+- Firebase Authentication
+- ExpressJS
+- Mongo Atlas
+- Axios
+- Docker
+- Heroku
 
-### Enhancements
+### API Routes
 
-- Installed React Bootstrap to speed up development; I was more interested in enhancing the functionality and spent very little time on the design. I consider this an MVP implementation to showcase features
-- Created reusable form component that dynamically generates necessary fields and takes in submit function
-- Added a Toast component to communicate success/error messages after form submission
-- Added Regex validation check to email field so it is properly formatted
-- Added CurrentUser to context so site visitor knows into which user's account they are depositing/withdrawing
-- Added validation check to create account that verifies entered email isn't already in the system, only unique email addresses are allowed
-- Added Select User dropdown to Deposit/Withdraw pages and validation to those forms that verifies current user is set before adding/subtracting from account
+- /api/customers
+  - Accepts POST request containing the Firebase ID and Name to create user account in database
+  - Method -> POST
+  - Headers -> Authentication: Firebase ID Token
+  - Body -> Name
+  - Returns -> User Object {name, email, \_id, balance, accountNumber}
+- /api/login
+  - Accepts Firebase ID Token to the server and returns account info for provided email
+  - Method -> POST
+  - Headers -> Authentication: Firebase ID Token
+  - Returns -> User Object {name, email, \_id, balance, accountNumber}
+- /api/update-balance
+  - Accepts PATCH data containing Firebase ID, amount and update method and returns new account balance
+  - Method -> PATCH
+  - Headers -> Authentication: Firebase ID Token
+  - Body -> Amount (positive value only), Action (withdraw or deposit)
+  - Returns -> Success/Fail message and new balance upon success
 
 ### Improvement Roadmap
 
-- Attach a database
-- Use API to send/receive data
-- Add Login page
-- Delete All Data page
-- Gatekeep so only authenticated users can see their acccount data, and no other account data
-- Hide Create Account page for authenticated users
+- Add additional account types, ability to open those different types and associate them with the customer
+- GraphQL for querying
+- Replace frontend with NextJS
+- Improved design and mobile-first architecture
+- Tighten up existing routes and provide more user-friendly messaging
+- A better dev environment (with live reloading) so developer doesn't have to open on separate ports
+- Account verification upon creation, must verify account before being routed to the account page
 
 ## Implementation
 
 - Clone, fork or download the repository
 - From terminal, navigate into repository and run `npm install` to install packages
-- Run `npm start` to start up dev server
-- Run `npm build` to build project for deployment
-
-## Screenshots
-
-![Create Account Page](/src/assets/screenshots/create-account.PNG)
-![Deposit Page](/src/assets/screenshots/deposit.PNG)
-![Withdraw Page](/src/assets/screenshots/withdraw.PNG)
-![All Data Page](/src/assets/screenshots/all-data.PNG)
+- Navigate to the Frontend directory and run `npm install` then `npm run build` (this installs the packages and builds the frontend application)
+- From the project root directory, run `npm run start` to start the server on PORT 3000 and open the browser
+  - Can also run `npm run dev` in frontend directory to open frontend app on PORT 4000 to avoid having to rebuild the frontend every time
 
 ## Licensing
 

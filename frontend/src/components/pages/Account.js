@@ -20,7 +20,7 @@ function Account() {
       {user ? (
         <CardComponent
           header={`Welcome, ${user.name}`}
-          subheader={`Your available balance is $${user.balance}`}
+          subheader={`Your available balance is $${user.balance.toLocaleString()}`}
           body={
             <>
               <p>

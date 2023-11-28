@@ -18,18 +18,6 @@ async function _findExistingCustomer(email) {
   return existingCustomer
 }
 
-// get all customers
-async function getAllCustomers() {
-  try {
-    const customers = await db.collection('customers').find({}).toArray()
-    console.log(customers)
-    return customers
-  } catch (err) {
-    console.error(err)
-    throw err
-  }
-}
-
 // login
 async function login(email) {
   try {
@@ -107,7 +95,6 @@ async function updateBalance(email, amount, action) {
 }
 
 module.exports = {
-  getAllCustomers,
   createCustomer,
   updateBalance,
   login,
