@@ -40,7 +40,7 @@ function Withdraw() {
       setUser({ ...user, balance: response.data.balance })
       return {
         success: true,
-        message: `$${data.amount} subtracted from your account`,
+        message: `$${data.amount} withdrawn from your account`,
       }
     } catch (error) {
       let data = error.response.data

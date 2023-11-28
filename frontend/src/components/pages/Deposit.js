@@ -38,7 +38,10 @@ function Deposit() {
         },
       })
       setUser({ ...user, balance: response.data.balance })
-      return { success: true, message: `$${data.amount} added to your account` }
+      return {
+        success: true,
+        message: `$${data.amount} deposited into your account`,
+      }
     } catch (error) {
       console.log(error)
     }

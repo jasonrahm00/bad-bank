@@ -58,6 +58,7 @@ This project is an enhancement to a previous assignment where we built the front
 - Tighten up existing routes and provide more user-friendly messaging
 - A better dev environment (with live reloading) so developer doesn't have to open on separate ports
 - Account verification upon creation, must verify account before being routed to the account page
+- Stream on the account page showing past transactions
 
 ## Implementation
 

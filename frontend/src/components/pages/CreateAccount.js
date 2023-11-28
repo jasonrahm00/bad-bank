@@ -24,7 +24,7 @@ const extraButtonStyle = {
 }
 
 function CreateAccount() {
-  const { user, setUser } = useAppContext()
+  const { user, setUser, setFirstLogin } = useAppContext()
   const [googleCreate, setGoogleCreate] = useState(false)
   const [googleFields, setGoogleFields] = useState({ email: '', name: '' })
   const navigate = useNavigate()
@@ -54,6 +54,7 @@ function CreateAccount() {
           name: data.name,
         },
       })
+      setFirstLogin(true)
       setUser(response.data)
       navigate('/account')
       return { success: true }
@@ -77,6 +78,7 @@ function CreateAccount() {
           name: data.name,
         },
       })
+      setFirstLogin(true)
       setUser(response.data)
       navigate('/account')
       return { success: true }

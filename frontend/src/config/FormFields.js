@@ -31,7 +31,7 @@ export const EmailField = {
 }
 
 export const SignupPasswordField = {
-  type: 'text',
+  type: 'password',
   name: 'password',
   placeholder: 'Enter your password',
   label: 'Password* (Minimum of 8 characters)',
@@ -46,7 +46,7 @@ export const SignupPasswordField = {
 }
 
 export const LoginPasswordField = {
-  type: 'text',
+  type: 'password',
   name: 'password',
   placeholder: 'Enter your password',
   label: 'Password*',

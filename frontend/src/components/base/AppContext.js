@@ -7,13 +7,14 @@ export const AppProvider = ({ children }) => {
   const userCookie =
     Cookies.get('user') !== undefined ? Cookies.get('user') : null
   const [user, setUser] = useState(userCookie ? JSON.parse(userCookie) : null)
+  const [firstLogin, setFirstLogin] = useState(false)
 
   useEffect(() => {
     Cookies.set('user', JSON.stringify(user))
   }, [user])
 
   return (
-    <AppContext.Provider value={{ user, setUser }}>
+    <AppContext.Provider value={{ user, setUser, firstLogin, setFirstLogin }}>
       {children}
     </AppContext.Provider>
   )
