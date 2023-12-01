@@ -6,7 +6,7 @@ const utils = require('./utils.js')
 const path = require('path')
 require('dotenv').config()
 
-app.use(express.static(path.join(__dirname, 'client', 'build')))
+app.use(express.static(path.join(__dirname, 'frontend', 'build')))
 app.use(cors())
 app.use(express.json())
 
@@ -64,7 +64,7 @@ app.patch('/api/update-balance', utils.verifyToken, async (req, res) => {
 
 // Catchall route to redirect to the frontend index.html so react router works properly
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+  res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'))
 })
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`))
