@@ -13,6 +13,7 @@ import { useAppContext } from '../base/AppContext'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Button from 'react-bootstrap/Button'
+import GoogleButtonText from '../base/GoogleButtonText'
 
 const auth = getAuth(firebase)
 const apiUrl = process.env.REACT_APP_API_ENDPOINT || '/'
@@ -100,7 +101,9 @@ function CreateAccount() {
                 fields={[NameField, EmailField]}
                 onSubmit={handleGoogleCreate}
                 defaultFormState={googleFields}
-                ctaText='Create Account using Gmail'
+                ctaText={
+                  <GoogleButtonText ctaText='Create Account using Gmail' />
+                }
                 activateButton='true'
               />
               <Button

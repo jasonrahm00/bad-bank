@@ -6,14 +6,11 @@ COPY package*.json ./
 
 RUN npm install
 
-WORKDIR /app/frontend
-
-COPY ./frontend/package*.json /app/frontend/
-
-RUN npm install
+COPY . .
 
 RUN npm build
 
-COPY . .
+EXPOSE 3000
+EXPOSE 3001
 
 CMD [ "npm", "start" ]

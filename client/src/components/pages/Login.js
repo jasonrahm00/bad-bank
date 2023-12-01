@@ -16,6 +16,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import ToastComponent from '../base/ToastComponent'
 import { toastDefault } from '../../config/Defaults'
+import GoogleButtonText from '../base/GoogleButtonText'
 
 const auth = getAuth(firebase)
 const apiUrl = process.env.REACT_APP_API_ENDPOINT || '/'
@@ -118,7 +119,7 @@ function Login() {
                 disabled={noGoogleAccount}
                 onClick={googleSignin}
               >
-                Login with Google
+                <GoogleButtonText ctaText='Login with Google' />
               </Button>
               {noGoogleAccount && (
                 <p className='mt-3'>

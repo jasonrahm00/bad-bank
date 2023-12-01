@@ -25,7 +25,7 @@ function NavComponent() {
       <Container>
         <Nav>
           <NavLink to='/' className='navbar-brand' title='Bank Homepage'>
-            Okay Bank
+            Bad Bank
           </NavLink>
         </Nav>
         <Nav>

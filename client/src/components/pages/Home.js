@@ -5,7 +5,7 @@ import bank from '../../assets/bank.png'
 function Home() {
   return (
     <CardComponent
-      header='Welcome to The Okay Bank'
+      header='Welcome to The Bad Bank'
       text='Your money is safe with us*'
       body={
         <div className='w-75 mx-auto'>
