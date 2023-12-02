@@ -13,10 +13,10 @@ The goal of this project is to create a full-stack simulated banking interface u
 This project is an enhancement to a previous assignment where we built the frontend of the application using React. To complete this capstone project, a backend and database were cofnigured and integrated with the existing frontend. Here is a quick rundown of the assignment requirements
 
 - User can create an account with an email address and password
-- User can login to the account with an email address/password or OAuth
+- User can login to the account with an email address/password or oAuth
 - User can Logout of the account
 - User can deposit/withdraw money and the balance is updated accordingly
-- User account data persists through login sessions (it's stored in a live database)
+- User account data persists through login sessions
 
 ### Technology Used
 
@@ -54,6 +54,7 @@ This project is an enhancement to a previous assignment where we built the front
 - Add additional account types, ability to open those different types and associate them with the customer
 - GraphQL for querying
 - Replace frontend with NextJS
+- Authorization timeout functionality
 - Improved design and mobile-first architecture
 - Tighten up existing routes and provide more user-friendly messaging
 - A better dev environment (with live reloading) so developer doesn't have to open on separate ports
@@ -67,6 +68,7 @@ This project is an enhancement to a previous assignment where we built the front
 - Navigate to the Frontend directory and run `npm install` then `npm run build` (this installs the packages and builds the frontend application)
 - From the project root directory, run `npm run start` to start the server on PORT 3000 and open the browser
   - Can also run `npm run dev` in frontend directory to open frontend app on PORT 4000 to avoid having to rebuild the frontend every time
+- Can also run `docker-compose up` to utiize the docker container
 
 ## Licensing
 
