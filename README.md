@@ -4,7 +4,7 @@ The goal of this project is to create a full-stack simulated banking interface u
 
 ## Hosted Site
 
-[Bad Bank](https://jr-bad-bank-19556df085a6.herokuapp.com/)
+[Bad Bank](https://jason-rahmfullstackbankingapp-3c79aed7155e.herokuapp.com/)
 
 ## Features
 
