@@ -63,14 +63,27 @@ async function updateBalance(email, amount, action) {
   try {
     const collection = db.collection('customers')
     const existingCustomer = await _findExistingCustomer(email)
+    let amountAsNum = Number(amount)
 
     const verifyFunds = () => {
-      return existingCustomer.balance + amount >= 0
+      return existingCustomer.balance + amountAsNum >= 0
     }
 
     // validate account existence
     if (!existingCustomer) {
       throw utils.createError(`Account not found with email: ${email}`)
+    }
+
+    if (isNaN(amountAsNum)) {
+      throw utils.createError('Please enter a number')
+    }
+
+    if (amountAsNum < 0) {
+      throw utils.createError('Please enter a positive number')
+    }
+
+    if (action === 'withdraw') {
+      amountAsNum = -amountAsNum
     }
 
     // verify available funds
@@ -80,7 +93,7 @@ async function updateBalance(email, amount, action) {
 
     const result = await collection.findOneAndUpdate(
       { email },
-      { $inc: { balance: amount } },
+      { $inc: { balance: amountAsNum } },
       { returnDocument: 'after' }
     )
 

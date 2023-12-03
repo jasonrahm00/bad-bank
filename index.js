@@ -41,21 +41,7 @@ app.patch('/api/update-balance', utils.verifyToken, async (req, res) => {
   const email = req.user.email
 
   try {
-    let amountAsNum = Number(amount)
-
-    if (isNaN(amountAsNum)) {
-      throw utils.createError('Please enter a number')
-    }
-
-    if (amountAsNum < 0) {
-      throw utils.createError('Please enter a positive number')
-    }
-
-    if (action === 'withdraw') {
-      amountAsNum = -amountAsNum
-    }
-
-    const response = await dal.updateBalance(email, amountAsNum, action)
+    const response = await dal.updateBalance(email, amount, action)
     res.send(response)
   } catch (error) {
     res.status(500).send(error)
