@@ -2,10 +2,6 @@
 
 The goal of this project is to create a full-stack simulated banking interface using ReactJS, Expess and MongoDB. In the interface, users can create an account, deposit and withdraw money. Users can create an accoutn and login using an email and password or with their Google account. The intent is to become familiarized with building a complete applications using the MERN stack. This project was created as an assingment for the MIT Full-Stack MERN Certification. For information on other projects I created for this certficiation, visit my [Github Portfolio Page](https://jasonrahm00.github.io/).
 
-## Hosted Site
-
-[Bad Bank](https://jason-rahmfullstackbankingapp-3c79aed7155e.herokuapp.com/)
-
 ## Features
 
 ### Original Project Features
